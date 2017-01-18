@@ -1,6 +1,6 @@
 # cmpt350termproject
 
-Group Members:
+## Group Members:
 * Jake Jones
 * Arun Jamal
 * Jack Staples
