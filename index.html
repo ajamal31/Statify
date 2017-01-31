@@ -7,9 +7,12 @@
 </head>
 <body>
 <script type="text/javascript">
+  var groupMembers = ['Jack', 'Jake', 'Arun']
   d3.select("body")
+  .data(groupMembers)
+  .enter()
   .append("p")
-  .text("New paragraph!");
+  .text(function (d) {return d;});
 </script>
 </body>
 </html>
