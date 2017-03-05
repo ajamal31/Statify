@@ -1,0 +1,28 @@
+{
+  "name": "cmpt350termproject",
+  "version": "1.0.0",
+  "description": "350 project to visualize spotify data using D3 vis tools",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "bootstrap": "^3.3.7",
+    "d3": "^3.5.17",
+    "ejs": "^2.5.6",
+    "express": "^4.15.0",
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonesj38/cmpt350termproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonesj38/cmpt350termproject/issues"
+  },
+  "homepage": "https://github.com/jonesj38/cmpt350termproject#readme"
+}

@@ -1,8 +1,10 @@
 *.sublime-workspace
 .DS_Store
 build/
-node_modules/
+node_modules
+jspm_packages
 npm-debug.log
 tasks.xml
 workspace.xml
 .idea/
+.DS_Store
