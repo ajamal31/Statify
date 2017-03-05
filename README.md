@@ -12,8 +12,11 @@ Clone the repository by running
 Install all dependencies by running in the root of the directory
 <pre> npm install </pre>
 
-I will add instructions to run the server, and where it runs when
-the express server has been built.
+then navigate to the src directory and run to launch the server
+<pre> node main.js </pre>
+
+the server runs one
+<pre> localhost:8080 </pre>
 
 ## Code Style:
 We are going to follow the google style guide found at:
