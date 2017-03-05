@@ -9,7 +9,7 @@
 Clone the repository by running 
 <pre> git clone https://github.com/jonesj38/cmpt350termproject </pre>
 
-Install all dependencies by running
+Install all dependencies by running in the root of the directory
 <pre> npm install </pre>
 
 I will add instructions to run the server, and where it runs when
