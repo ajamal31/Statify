@@ -1,5 +1,5 @@
 var app = require('./app/server');
 
 app.listen(8080, function(){
-  console.log('server is running');
+  console.log('server is running on localhost:8080');
 })
