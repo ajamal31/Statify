@@ -1,0 +1,13 @@
+/* Styling here */
+body {
+  background-color: pink;
+  margin: 0;
+} 
+
+header{
+  background-color: blue;
+}
+.col-sm-9 {
+  
+  background-color:pink;
+}
