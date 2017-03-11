@@ -75,7 +75,7 @@ app.use(express.static(__dirname + '/public'));
 app.engine('html', consolidate.swig);
 
 app.get('/', function (req, res) {
-    res.render('index.html', {user: req.user});
+    res.render('home.ejs', {user: req.user});
 });
 
 app.get('/account', ensureAuthenticated, function (req, res) {
