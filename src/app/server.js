@@ -23,21 +23,14 @@ spotifyApi.clientCredentialsGrant()
   .then(function(data) {
     // Set the access token on the API object so that it's used in all future requests
     spotifyApi.setAccessToken(data.body['access_token']);
-
-    // Get the most popular tracks by David Bowie in Great Britain
-    return spotifyApi.getArtistTopTracks('3a9qv6NLHnsVxJUtKOMHvD', 'US')
-  }).then(function(data) {
-    console.log('The most popular tracks for the Glitch Mob is..');
-    console.log('Drum roll..')
-    console.log('...')
-
-    data.body.tracks.forEach(function(track, index) {
-      console.log((index+1) + '. ' + track.name + ' (popularity is ' + track.popularity + ')');
-    });
-
-  }).catch(function(err) {
-    console.log('Unfortunately, something has gone wrong.', err.message);
-});
+  });
+  
+spotifyApi.getMe()
+  .then(function(data) {
+    console.log('Some information about the authenticated user', data.body);
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
 
 var app = express();
 // tell the server where the views are
