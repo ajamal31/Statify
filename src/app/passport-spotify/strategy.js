@@ -127,9 +127,9 @@ Strategy.prototype.authorizationParams = function (options) {
  */
 Strategy.prototype.userProfile = function(accessToken, done) {
 
-  var authorization = 'Bearer ' + accessToken;
+  var authorization =  accessToken;
   var headers = {
-      'Authorization' : authorization
+      'Authorization' : 'Bearer ' + authorization
   };
   this._oauth2._request('GET', this._userProfileURL, headers, '', '', function(err, body, res) {
     if (err) { return done(new InternalOAuthError('failed to fetch user profile', err)); }
@@ -140,6 +140,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
 
       var profile = {
         provider: 'spotify',
+        oauth: authorization,
         id: json.id,
         username: json.id,
         displayName: json.display_name,
