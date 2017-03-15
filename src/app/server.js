@@ -78,16 +78,15 @@ app.get('/', function (req, res) {
     var spotifyApi = new SpotifyWebApi({
       clientId : appKey,
       clientSecret : appSecret,
+      accessToken : req.user.oauth,
       redirectUri : 'http://localhost:8888/callback'
     });
-    console.log(req.user.oauth);
-    // Retrieve an access token
-    spotifyApi.clientCredentialsGrant()
-      .then(function(data) {
-      // Set the access token on the API object so that it's used in all future requests
-      spotifyApi.setAccessToken(data.body['access_token']);
+    spotifyApi.getMyTopTracks()
+    .then(function(data) {
+      console.log('Top tracks', data.body);
+    }, function(err) {
+      console.log('Something went wrong!', err);
     });
-
     res.render('home.ejs', {user: req.user});
 });
 
@@ -105,7 +104,7 @@ app.get('/login', function (req, res) {
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify',
-    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'user-top-read'], showDialog: true}),
     function (req, res) {
 // The request will be redirected to spotify for authentication, so this
 // function will not be called.
