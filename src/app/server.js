@@ -9,10 +9,11 @@ var express = require('express'),
     passport = require('passport'),
     swig = require('swig'),
     SpotifyStrategy = require('./passport-spotify/index').Strategy;
-
+    
 var consolidate = require('consolidate');
+var SpotifyWebApi = require('spotify-web-api-node');
 
-var appKey = '2f1def3a12c34f8083a6fae3ace4fd32';
+var appKey =  '2f1def3a12c34f8083a6fae3ace4fd32';
 var appSecret = '7ba7b27730e548a8a129287bb9ef1f4f';
 
 // Passport session setup.
@@ -29,7 +30,6 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (obj, done) {
     done(null, obj);
 });
-
 
 // Use the SpotifyStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -75,6 +75,18 @@ app.use(express.static(__dirname + '/../public'));
 app.engine('html', consolidate.swig);
 
 app.get('/', function (req, res) {
+    var spotifyApi = new SpotifyWebApi({
+      clientId : appKey,
+      clientSecret : appSecret,
+      accessToken : req.user.oauth,
+      redirectUri : 'http://localhost:8888/callback'
+    });
+    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
+    .then(function(data) {
+      console.log('Top tracks', data.body);
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
     res.render('home.ejs', {user: req.user});
 });
 
@@ -92,7 +104,7 @@ app.get('/login', function (req, res) {
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify',
-    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+    passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'user-top-read'], showDialog: true}),
     function (req, res) {
 // The request will be redirected to spotify for authentication, so this
 // function will not be called.
@@ -126,6 +138,7 @@ function ensureAuthenticated(req, res, next) {
     }
     res.redirect('/login');
 }
+
 
 // export the app
 module.exports = app;
