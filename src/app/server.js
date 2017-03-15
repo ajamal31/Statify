@@ -81,7 +81,7 @@ app.get('/', function (req, res) {
       accessToken : req.user.oauth,
       redirectUri : 'http://localhost:8888/callback'
     });
-    spotifyApi.getMyTopTracks()
+    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
     .then(function(data) {
       console.log('Top tracks', data.body);
     }, function(err) {
