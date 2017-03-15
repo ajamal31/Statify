@@ -13,7 +13,7 @@ var express = require('express'),
 var consolidate = require('consolidate');
 var SpotifyWebApi = require('spotify-web-api-node');
 
-var appKey = '2f1def3a12c34f8083a6fae3ace4fd32';
+var appKey =  '2f1def3a12c34f8083a6fae3ace4fd32';
 var appSecret = '7ba7b27730e548a8a129287bb9ef1f4f';
 
 // Passport session setup.

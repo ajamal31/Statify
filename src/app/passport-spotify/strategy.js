@@ -140,7 +140,7 @@ Strategy.prototype.userProfile = function(accessToken, done) {
 
       var profile = {
         provider: 'spotify',
-        oauth: authorization,
+        oauth: accessToken,
         id: json.id,
         username: json.id,
         displayName: json.display_name,
