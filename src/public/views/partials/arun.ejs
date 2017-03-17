@@ -1,30 +1,27 @@
+
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <h1 class="page-header">Dashboard</h1>
+  <h3>My Most Listened To Tracks</h3>
   <div class="row placeholders">
     <div class="col-xs-6 col-sm-2 placeholder">
-      <img src="<%= topTracks %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Label</h4>
-          <span class="text-muted">Placeholder 1</span>
+      <img src="<%= topTracks.items[0].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4><%= topTracks.items[0].name %></h4>
     </div>
     <div class="col-xs-6 col-sm-2 placeholder">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-      <h4>Label</h4>
-      <span class="text-muted">Placeholder 2</span>
+      <img src="<%= topTracks.items[1].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4><%= topTracks.items[1].name %></h4>
     </div>
     <div class="col-xs-6 col-sm-2 placeholder">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-      <h4>Label</h4>
-      <span class="text-muted">Placeholder 3</span>
+      <img src="<%= topTracks.items[2].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4><%= topTracks.items[2].name %></h4>
     </div>
     <div class="col-xs-6 col-sm-2 placeholder">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-      <h4>Label</h4>
-      <span class="text-muted">Placeholder 4</span>
+      <img src="<%= topTracks.items[3].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4><%= topTracks.items[3].name %></h4>
     </div>
     <div class="col-xs-6 col-sm-2 placeholder">
-      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-      <h4>Label</h4>
-      <span class="text-muted">Placeholder 4</span>
+      <img src="<%= topTracks.items[4].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+      <h4><%= topTracks.items[4].name %></h4>
     </div>
   </div>
 </div>
