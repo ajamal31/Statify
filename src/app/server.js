@@ -71,12 +71,16 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/../public'));
 
-app.get('/', ensureAuthenticated, function (req, res) {
-    requestData(req, res);
+app.get('/', function (req, res) {
+    if (req.isAuthenticated()) {
+        requestData(req, res);
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.get('/login', function (req, res) {
-    res.render('login.ejs', {user: req.user});
+    res.render('login.ejs');
 });
 
 // GET /auth/spotify
@@ -112,12 +116,13 @@ app.get('/logout', function (req, res) {
 //   the request is authenticated (typically via a persistent login session),
 //   the request will proceed. Otherwise, the user will be redirected to the
 //   login page.
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
-}
+// function ensureAuthenticated(req, res, next) {
+//     if (req.isAuthenticated()) {
+//         return true;
+//     }
+//     res.redirect('/login');
+//     return false;
+// }
 
 // Gets all the data (tracks, artists...) and passes to the view.
 function requestData(req, res) {
@@ -128,7 +133,7 @@ function requestData(req, res) {
     });
     spotifyApi.setAccessToken(req.user.oauth);
     requestTracks(spotifyApi, res);
-    requestArtists(spotifyApi, res);
+    // requestArtists(spotifyApi, res);
 }
 
 // Gets top 10 tracks
@@ -137,6 +142,7 @@ function requestTracks(spotifyApi, res) {
         if (err) {
             console.error('Something went wrong in tracks request!');
         } else {
+            // console.log(err);
             res.render('home.ejs', { topTracks: data.body.items});
         }
     });
@@ -148,7 +154,7 @@ function requestArtists(spotifyApi, res) {
             console.error('Something went wrong in artists request!');
         } else {
             // console.log('Top artists', data.body.items);
-            res.render('home.ejs', { topArtists: data.body.items});
+            res.render('home.ejs', { topArtists: data.body});
         }
     });
 }
