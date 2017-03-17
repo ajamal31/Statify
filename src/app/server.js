@@ -71,7 +71,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/../public'));
 
-app.get('/', function (req, res) {
+app.get('/', ensureAuthenticated, function (req, res) {
     requestData(req, res);
 });
 
@@ -124,30 +124,32 @@ function requestData(req, res) {
     var spotifyApi = new SpotifyWebApi({
       clientId : appKey,
       clientSecret : appSecret,
-      accessToken : req.user.oauth,
       redirectUri : 'http://localhost:8888/callback'
     });
+    spotifyApi.setAccessToken(req.user.oauth);
     requestTracks(spotifyApi, res);
     requestArtists(spotifyApi, res);
 }
 
 // Gets top 10 tracks
 function requestTracks(spotifyApi, res) {
-    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
-    .then(function(data) {
-      res.render('home.ejs', {topTracks: data.body.items});
-    }, function(err) {
-      console.log('Something went wrong!', err);
+    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10}, function(err, data) {
+        if (err) {
+            console.error('Something went wrong in tracks request!');
+        } else {
+            res.render('home.ejs', { topTracks: data.body.items});
+        }
     });
 }
-// Gets top 10 tracks
+// Gets top 10 artists
 function requestArtists(spotifyApi, res) {
-    spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10})
-    .then(function(data) {
-      console.log('Top artists', data.body.items);
-      res.render('home.ejs', {topArtists: data.body.items});
-    }, function(err) {
-      console.log('Something went wrong!', err);
+    spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10}, function(err, data) {
+        if (err) {
+            console.error('Something went wrong in artists request!');
+        } else {
+            // console.log('Top artists', data.body.items);
+            res.render('home.ejs', { topArtists: data.body.items});
+        }
     });
 }
 
