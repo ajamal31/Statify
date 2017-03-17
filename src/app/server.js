@@ -128,14 +128,24 @@ function requestData(req, res) {
       redirectUri : 'http://localhost:8888/callback'
     });
     requestTracks(spotifyApi, res);
+    requestArtists(spotifyApi, res);
 }
 
 // Gets top 10 tracks
 function requestTracks(spotifyApi, res) {
     spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
     .then(function(data) {
-      console.log('Top tracks', data.body.items);
-      res.render('home.ejs', {topTracks: data.body});
+      res.render('home.ejs', {topTracks: data.body.items});
+    }, function(err) {
+      console.log('Something went wrong!', err);
+    });
+}
+// Gets top 10 tracks
+function requestArtists(spotifyApi, res) {
+    spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10})
+    .then(function(data) {
+      console.log('Top artists', data.body.items);
+      res.render('home.ejs', {topArtists: data.body.items});
     }, function(err) {
       console.log('Something went wrong!', err);
     });
