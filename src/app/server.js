@@ -9,7 +9,7 @@ var express = require('express'),
     passport = require('passport'),
     swig = require('swig'),
     SpotifyStrategy = require('./passport-spotify/index').Strategy;
-    
+
 var consolidate = require('consolidate');
 var SpotifyWebApi = require('spotify-web-api-node');
 
@@ -72,7 +72,7 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/../public'));
 
-app.engine('html', consolidate.swig);
+// app.engine('html', consolidate.swig);
 
 app.get('/', function (req, res) {
     var spotifyApi = new SpotifyWebApi({
@@ -83,19 +83,20 @@ app.get('/', function (req, res) {
     });
     spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
     .then(function(data) {
-      console.log('Top tracks', data.body);
+      console.log('Top tracks', data.body.items[0].album.images[1].url);
+      res.render('home.ejs', {topTracks: data.body.items[0].album.images[1].url});
     }, function(err) {
       console.log('Something went wrong!', err);
     });
-    res.render('home.ejs', {user: req.user});
+    // res.render('home.ejs', {user: req.user});
 });
 
-app.get('/account', ensureAuthenticated, function (req, res) {
-    res.render('account.html', {user: req.user});
-});
+// app.get('/account', ensureAuthenticated, function (req, res) {
+//     res.render('account.html', {user: req.user});
+// });
 
 app.get('/login', function (req, res) {
-    res.render('login.html', {user: req.user});
+    res.render('login.ejs', {user: req.user});
 });
 
 // GET /auth/spotify
