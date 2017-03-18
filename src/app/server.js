@@ -132,31 +132,36 @@ function requestData(req, res) {
       redirectUri : 'http://localhost:8888/callback'
     });
     spotifyApi.setAccessToken(req.user.oauth);
-    requestTracks(spotifyApi, res);
-    // requestArtists(spotifyApi, res);
+    requestTracks(spotifyApi, res, requestArtists);
+}
+
+// render the home page
+function renderHome(res, tracks, artists){
+  console.log(tracks);
+  console.log(artists);
+  console.log("rendering!");
+  res.render('home.ejs', {topTracks: tracks, topArtists: artists});
 }
 
 // Gets top 10 tracks
-function requestTracks(spotifyApi, res) {
-    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10}, function(err, data) {
+function requestTracks(spotifyApi, res, callback) {
+  spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10}, function(err, data) {
         if (err) {
             console.error('Something went wrong in tracks request!');
         } else {
-            // console.log(err);
-            res.render('home.ejs', { topTracks: data.body.items});
+          callback(spotifyApi, res, data.body.items, renderHome);
         }
-    });
+  });
 }
 // Gets top 10 artists
-function requestArtists(spotifyApi, res) {
-    spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10}, function(err, data) {
+function requestArtists(spotifyApi, res, tracks, callback) {
+  spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10}, function(err, data) {
         if (err) {
             console.error('Something went wrong in artists request!');
         } else {
-            // console.log('Top artists', data.body.items);
-            res.render('home.ejs', { topArtists: data.body});
+          callback(res, tracks, data.body.items);
         }
-    });
+  });
 }
 
 // export the app
