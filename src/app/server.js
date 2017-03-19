@@ -140,25 +140,31 @@ function renderHome(res, tracks, artists, genres){
   //console.log(tracks);
   //console.log(artists);
   //console.log("rendering!");
-  res.render('home.ejs', {topTracks: tracks, topArtists: artists});
+  res.render('home.ejs', {topTracks: tracks, topArtists: artists, topGenres:genres});
 }
 
-function makeGenres(spotifyApi, res, tracks, artists, callback){
-  //console.log(artists);
-  var art;
-  for (var i=0; i<50; i++){
-    spotifyApi.getArtist(tracks[i].artists[0].id)
-      .then(function(data) {
-        art[i] = data.body;
-      }, function(err) {
-        console.error(err);
-      });
-    if (art[i] !== "undefined"){
-      console.log(art[i].genres);
-    }
+function makeGenres(spotifyApi, res, tracks, artists, callback) {
+  var trackIds = [];
+
+  // Used to store multiple ids.
+  for (i=0; i < tracks.length; i++){
+      trackIds.push(tracks[i].artists[0].id);
   }
+
+  // Gets all the genres and make a callback.
+  spotifyApi.getArtists(trackIds, function(err, data) {
+    if (err) {
+        console.error('Something went wrong in getArtists request!');
+    } else {
+        var genres = [];
+        var artists = data.body.artists;
+        for (i = 0; i < artists.length; i++) {
+            genres.push(artists[i].genres);
+        }
+    callback(res, tracks, artists, genres);
+    }
+  });
   console.log("sending to render");
-  callback(res, tracks, artists, 1);
 }
 
 // Gets top 10 tracks
