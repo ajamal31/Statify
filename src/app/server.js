@@ -1,6 +1,6 @@
-/* This file handles the spotfiy authentication*/
-/* NOTE: THERE ARE ROUTES IN THIS FILE AND THEY SHOULD NOT BE IN HERE, SO THEY NEED TO BE MOVED!!!*/
+/* Need a header here */
 
+/* Comment need: why are these lines here? */
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -8,21 +8,21 @@ var express = require('express'),
     session = require('express-session'),
     passport = require('passport'),
     swig = require('swig'),
-    SpotifyStrategy = require('./passport-spotify/index').Strategy;
-    
-var consolidate = require('consolidate');
-var SpotifyWebApi = require('spotify-web-api-node');
+    SpotifyStrategy = require('./passport-spotify/index').Strategy,
+    consolidate = require('consolidate'),
+    SpotifyWebApi = require('spotify-web-api-node');
 
+// API needs these to communicate with Spotify's database
 var appKey =  '2f1def3a12c34f8083a6fae3ace4fd32';
 var appSecret = '7ba7b27730e548a8a129287bb9ef1f4f';
 
-// Passport session setup.
+//   Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session. Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing. However, since this example does not
 //   have a database of user records, the complete spotify profile is serialized
-//   and deserialized.
+//   and deserialized. <---- reword or remove comment.
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -55,7 +55,6 @@ var app = express();
 
 // tell the server where the views are
 app.set('views', __dirname + '/../public/views');
-
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
@@ -72,30 +71,16 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/../public'));
 
-app.engine('html', consolidate.swig);
-
 app.get('/', function (req, res) {
-    var spotifyApi = new SpotifyWebApi({
-      clientId : appKey,
-      clientSecret : appSecret,
-      accessToken : req.user.oauth,
-      redirectUri : 'http://localhost:8888/callback'
-    });
-    spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10})
-    .then(function(data) {
-      console.log('Top tracks', data.body);
-    }, function(err) {
-      console.log('Something went wrong!', err);
-    });
-    res.render('home.ejs', {user: req.user});
-});
-
-app.get('/account', ensureAuthenticated, function (req, res) {
-    res.render('account.html', {user: req.user});
+    if (req.isAuthenticated()) {
+        requestData(req, res);
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.get('/login', function (req, res) {
-    res.render('login.html', {user: req.user});
+    res.render('login.ejs');
 });
 
 // GET /auth/spotify
@@ -123,22 +108,48 @@ app.get('/callback',
 
 app.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/logout');
 });
 
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed. Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect('/login');
+// Gets all the data (tracks, artists...) and passes to the view.
+function requestData(req, res) {
+    var spotifyApi = new SpotifyWebApi({
+      clientId : appKey,
+      clientSecret : appSecret,
+      redirectUri : 'http://localhost:8888/callback'
+    });
+    spotifyApi.setAccessToken(req.user.oauth);
+    requestTracks(spotifyApi, res, requestArtists);
 }
 
+// render the home page
+function renderHome(res, tracks, artists){
+  console.log(tracks);
+  console.log(artists);
+  console.log("rendering!");
+  res.render('home.ejs', {topTracks: tracks, topArtists: artists});
+}
+
+// Gets top 10 tracks
+function requestTracks(spotifyApi, res, callback) {
+  spotifyApi.getMyTopTracks({time_range: 'short_term', limit: 10}, function(err, data) {
+        if (err) {
+            console.error('Something went wrong in tracks request!');
+        } else {
+          callback(spotifyApi, res, data.body.items, renderHome);
+        }
+  });
+}
+// Gets top 10 artists
+function requestArtists(spotifyApi, res, tracks, callback) {
+  spotifyApi.getMyTopArtists({time_range: 'short_term', limit: 10}, function(err, data) {
+        if (err) {
+            console.error('Something went wrong in artists request!');
+        } else {
+          callback(res, tracks, data.body.items);
+        }
+  });
+}
 
 // export the app
 module.exports = app;
