@@ -157,14 +157,14 @@ function makeGenres(spotifyApi, res, tracks, artists, callback) {
             console.error('Something went wrong in getArtists request!');
         } else {
             var genres = [];
-            var artists = data.body.artists;
-            for (i = 0; i < artists.length; i++) {
-                genres.push(artists[i].genres);
+            var gnrArtists = data.body.artists;
+            for (i = 0; i < gnrArtists.length; i++) {
+                genres.push(gnrArtists[i].genres);
             }
+            console.log("sending to render");
             callback(res, tracks, artists, genres);
         }
     });
-    console.log("sending to render");
 }
 
 // Gets top 10 tracks
