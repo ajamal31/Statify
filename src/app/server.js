@@ -36,20 +36,21 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and spotify
 //   profile), and invoke a callback with a user object.
 passport.use(new SpotifyStrategy({
-        clientID: appKey,
-        clientSecret: appSecret,
-        callbackURL: 'http://localhost:8888/callback'
-    },
-    function(accessToken, refreshToken, profile, done) {
-        // asynchronous verification, for effect...
-        process.nextTick(function() {
-            // To keep the example simple, the user's spotify profile is returned to
-            // represent the logged-in user. In a typical application, you would want
-            // to associate the spotify account with a user record in your database,
-            // and return that user instead.
-            return done(null, profile);
-        });
-    }));
+    clientID: appKey,
+    clientSecret: appSecret,
+    callbackURL: 'http://localhost:8888/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function() {
+      // To keep the example simple, the user's spotify profile is returned to
+      // represent the logged-in user. In a typical application, you would want
+      // to associate the spotify account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    });
+  })
+);
 
 var app = express();
 
@@ -132,23 +133,52 @@ function requestData(req, res) {
 }
 
 // render the home page
-function renderHome(res, tracks, artists, genres) {
-    //console.log(tracks);
-    //console.log(artists);
-    //console.log("rendering!");
-    res.render('home.ejs', {
+function renderHome(res, tracks, artists, genres, trackStats) {
+  console.log("trackstats:");
+  console.log(trackStats);
+    res.render('home.ejs',
+    {
         topTracks: tracks,
         topArtists: artists,
-        topGenres: genres
-    });
+        topGenres: genres,
+        trackAnalysis: trackStats
+    }
+    );
 }
 
+function dashboardData(spotifyApi, res, tracks, artists, genres, callback){
+  var trackIds = [];
+  //store the analysis for the tracks
+  for (i = 0; i < 10; i++) {
+    trackIds.push(tracks[i].id);
+  }
+  /* Get Audio Features for a Track */
+spotifyApi.getAudioFeaturesForTracks(trackIds)
+  .then(function(data) {
+    console.log(data.body); 
+    var dashboardPass = [];
+    var trackData = data.body.audio_features;
+    for (i = 0; i < trackData.length; i++) {
+      
+      dashboardPass.push({
+      rank: i+1,
+      danceability: trackData[i].danceability.toPrecision(3),
+      energy: trackData[i].energy.toPrecision(3),
+      speechiness: trackData[i].speechiness.toPrecision(3)});
+    }
+    console.log(dashboardPass);
+    callback(res, tracks, artists, genres, dashboardPass);
+  }, function(err) {
+    done(err);
+  });
+}
+// get the genres for your top tracks
 function makeGenres(spotifyApi, res, tracks, artists, callback) {
     var trackIds = [];
 
     // Used to store multiple ids.
     for (i = 0; i < tracks.length; i++) {
-        trackIds.push(tracks[i].artists[0].id);
+      trackIds.push(tracks[i].artists[0].id);
     }
 
     // Gets all the genres and make a callback.
@@ -159,10 +189,9 @@ function makeGenres(spotifyApi, res, tracks, artists, callback) {
             var genres = [];
             var gnrArtists = data.body.artists;
             for (i = 0; i < gnrArtists.length; i++) {
-                genres.push(gnrArtists[i].genres);
+              genres.push(gnrArtists[i].genres);
             }
-            console.log("sending to render");
-            callback(res, tracks, artists, genres);
+            callback(spotifyApi, res, tracks, artists, genres, renderHome);
         }
     });
 }
@@ -189,7 +218,7 @@ function requestArtists(spotifyApi, res, tracks, callback) {
         if (err) {
             console.error('Something went wrong in artists request!');
         } else {
-            callback(spotifyApi, res, tracks, data.body.items, renderHome);
+            callback(spotifyApi, res, tracks, data.body.items, dashboardData);
         }
     });
 }

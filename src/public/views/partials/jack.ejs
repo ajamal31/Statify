@@ -58,6 +58,8 @@
         align: right;
         width: 50px;
     }
+    
+    
 </style>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-1 main">
@@ -70,10 +72,10 @@
 <script>
 function dashboard(id, fData){
     var barColor = 'steelblue';
-    function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
+    function segColor(c){ return {danceability:"#807dba", energy:"#e08214",speechiness:"#41ab5d"}[c]; }
 
     // compute total for each state.
-    fData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+    fData.forEach(function(d){d.total=d.freq.danceability+d.freq.energy+d.freq.speechiness;});
 
     // function to handle histogram.
     function histoGram(fD){
@@ -227,7 +229,7 @@ function dashboard(id, fData){
 
         // create the third column for each segment.
         tr.append("td").attr("class",'legendFreq')
-            .text(function(d){ return d3.format(",")(d.freq);});
+            .text(function(d){ return d3.format(",")(d.freq.toPrecision(3));});
 
         // create the fourth column for each segment.
         tr.append("td").attr("class",'legendPerc')
@@ -239,7 +241,7 @@ function dashboard(id, fData){
             var l = legend.select("tbody").selectAll("tr").data(nD);
 
             // update the frequencies.
-            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq);});
+            l.select(".legendFreq").text(function(d){ return d3.format(",")(d.freq.toPrecision(3));});
 
             // update the percentage column.
             l.select(".legendPerc").text(function(d){ return getLegend(d,nD);});
@@ -253,32 +255,36 @@ function dashboard(id, fData){
     }
 
     // calculate total frequency by segment for all state.
-    var tF = ['low','mid','high'].map(function(d){
+    var tF = ['danceability','energy','speechiness'].map(function(d){
         return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))};
     });
 
     // calculate total frequency by state for all segment.
-    var sF = fData.map(function(d){return [d.State,d.total];});
+    var sF = fData.map(function(d){return [d.State,d.total.toPrecision(3)];});
 
     var hG = histoGram(sF), // create the histogram.
         pC = pieChart(tF), // create the pie-chart.
         leg= legend(tF);  // create the legend.
 }
+
 </script>
 
 <script>
 var freqData=[
-{State:'AL',freq:{low:4786, mid:1319, high:249}}
-,{State:'AZ',freq:{low:1101, mid:412, high:674}}
-,{State:'CT',freq:{low:932, mid:2149, high:418}}
-,{State:'DE',freq:{low:832, mid:1152, high:1862}}
-,{State:'FL',freq:{low:4481, mid:3304, high:948}}
-,{State:'GA',freq:{low:1619, mid:167, high:1063}}
-,{State:'IA',freq:{low:1819, mid:247, high:1203}}
-,{State:'IL',freq:{low:4498, mid:3852, high:942}}
-,{State:'IN',freq:{low:797, mid:1849, high:1534}}
-,{State:'KS',freq:{low:162, mid:379, high:471}}
+{State:'1',freq:{danceability:<%= trackAnalysis[0].danceability %>, energy:<%= trackAnalysis[0].energy %>, speechiness:<%= trackAnalysis[0].speechiness %>}}
+,{State:'2',freq:{danceability:<%= trackAnalysis[1].danceability %>, energy:<%= trackAnalysis[1].energy %>, speechiness:<%= trackAnalysis[1].speechiness %>}}
+,{State:'3',freq:{danceability:<%= trackAnalysis[2].danceability %>, energy:<%= trackAnalysis[2].energy %>, speechiness:<%= trackAnalysis[2].speechiness %>}}
+,{State:'4',freq:{danceability:<%= trackAnalysis[3].danceability %>, energy:<%= trackAnalysis[3].energy %>, speechiness:<%= trackAnalysis[3].speechiness %>}}
+,{State:'5',freq:{danceability:<%= trackAnalysis[4].danceability %>, energy:<%= trackAnalysis[4].energy %>, speechiness:<%= trackAnalysis[4].speechiness %>}}
+,{State:'6',freq:{danceability:<%= trackAnalysis[5].danceability %>, energy:<%= trackAnalysis[5].energy %>, speechiness:<%= trackAnalysis[5].speechiness %>}}
+,{State:'7',freq:{danceability:<%= trackAnalysis[6].danceability %>, energy:<%= trackAnalysis[6].energy %>, speechiness:<%= trackAnalysis[6].speechiness %>}}
+,{State:'8',freq:{danceability:<%= trackAnalysis[7].danceability %>, energy:<%= trackAnalysis[7].energy %>, speechiness:<%= trackAnalysis[7].speechiness %>}}
+,{State:'9',freq:{danceability:<%= trackAnalysis[8].danceability %>, energy:<%= trackAnalysis[8].energy %>, speechiness:<%= trackAnalysis[8].speechiness %>}}
+,{State:'10',freq:{danceability:<%= trackAnalysis[9].danceability %>, energy:<%= trackAnalysis[9].energy %>, speechiness:<%= trackAnalysis[9].speechiness %>}}
 ];
+console.log("running");
+console.log(freqData);
+console.log(<%= trackAnalysis[0].danceability %>);
 
 dashboard('#dashboard',freqData);
 </script>
