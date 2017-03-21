@@ -83,16 +83,21 @@ body {
 
 .placeholders {
   margin-bottom: 30px;
-  text-align: center;
   background-color: #192015;
+  text-align: center
 }
 .placeholders h4 {
   margin-bottom: 0;
 }
 .placeholder {
+  display:block;
   margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
 }
 .placeholder img {
+  width: 85px;
+  height: 85px;
   display: inline-block;
   border-radius: 50%;
 }

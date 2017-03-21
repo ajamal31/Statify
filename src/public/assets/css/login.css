@@ -1,0 +1,27 @@
+body {
+  padding-top: 50px;
+  background-color: #373737;
+  color: white;
+}
+#login-block{
+  width: 50%;
+  top: 10%;
+  margin: auto;
+  background-color: #000000;
+  border: black 1px solid;
+  text-align: center;
+  padding-bottom: 2%;
+}
+button {
+  background: #649000;
+  width: 35%;
+  height: 40px;
+  border-radius: 10px;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+button:hover {
+  background: #82BD03;
+}
