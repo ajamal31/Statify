@@ -17,7 +17,7 @@ body {
  */
 .navbar-fixed-top {
   border: 1;
-  border-color: gold;
+  border-color: white;
   background-color: #232323;
 }
 
@@ -82,9 +82,9 @@ body {
  */
 
 .placeholders {
-  margin-bottom: 30px;
-  background-color: #192015;
-  text-align: center
+   margin-bottom: 30px;
+   background-color: #192015;
+   text-align: center
 }
 .placeholders h4 {
   margin-bottom: 0;
