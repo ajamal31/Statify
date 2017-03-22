@@ -45,45 +45,45 @@ var util = require('util'),
  * @param {Function} verify
  * @api public
  */
- function Strategy(options, verify) {
-  options = options || {};
-  options.authorizationURL = options.authorizationURL || 'https://accounts.spotify.com/authorize';
-  options.tokenURL = options.tokenURL || 'https://accounts.spotify.com/api/token';
-  options.scopeSeparator = options.scopeSeparator || ' ';
+function Strategy(options, verify) {
+    options = options || {};
+    options.authorizationURL = options.authorizationURL || 'https://accounts.spotify.com/authorize';
+    options.tokenURL = options.tokenURL || 'https://accounts.spotify.com/api/token';
+    options.scopeSeparator = options.scopeSeparator || ' ';
 
-  OAuth2Strategy.call(this, options, verify);
-  this.name = 'spotify';
-  this._userProfileURL = options.userProfileURL || 'https://api.spotify.com/v1/me';
+    OAuth2Strategy.call(this, options, verify);
+    this.name = 'spotify';
+    this._userProfileURL = options.userProfileURL || 'https://api.spotify.com/v1/me';
 
-  this._oauth2.getOAuthAccessToken = function(code, params, callback) {
-    params = params || {};
-    var codeParam = (params.grant_type === 'refresh_token') ? 'refresh_token' : 'code';
-    params[codeParam] = code;
-    params['client_id'] = this._clientId;
-    params['client_secret'] = this._clientSecret;
+    this._oauth2.getOAuthAccessToken = function(code, params, callback) {
+        params = params || {};
+        var codeParam = (params.grant_type === 'refresh_token') ? 'refresh_token' : 'code';
+        params[codeParam] = code;
+        params['client_id'] = this._clientId;
+        params['client_secret'] = this._clientSecret;
 
-    var post_data = querystring.stringify(params);
-    var post_headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        var post_data = querystring.stringify(params);
+        var post_headers = {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        };
+
+        this._request('POST', this._getAccessTokenUrl(), post_headers, post_data, null, function(error, data, response) {
+            if (error) callback(error);
+            else {
+                var results = JSON.parse(data);
+                var access_token = results.access_token;
+                var refresh_token = results.refresh_token;
+                delete results.refresh_token;
+                callback(null, access_token, refresh_token, results); // callback results =-=
+            }
+        });
     };
-
-    this._request('POST', this._getAccessTokenUrl(), post_headers, post_data, null, function(error, data, response) {
-        if (error) callback(error);
-        else {
-            var results = JSON.parse(data);
-            var access_token = results.access_token;
-            var refresh_token = results.refresh_token;
-            delete results.refresh_token;
-            callback(null, access_token, refresh_token, results); // callback results =-=
-        }
-    });
-  };
 }
 
 /**
  * Inherit from `OAuth2Strategy`.
  */
- util.inherits(Strategy, OAuth2Strategy);
+util.inherits(Strategy, OAuth2Strategy);
 
 /**
  * Return extra Spotify-specific parameters to be included in the authorization
@@ -100,14 +100,14 @@ var util = require('util'),
  * @return {Object}
  * @api protected
  */
-Strategy.prototype.authorizationParams = function (options) {
-  var params = {};
+Strategy.prototype.authorizationParams = function(options) {
+    var params = {};
 
-  if (options.showDialog) {
-    params.show_dialog = options.showDialog;
-  }
+    if (options.showDialog) {
+        params.show_dialog = options.showDialog;
+    }
 
-  return params;
+    return params;
 };
 
 /**
@@ -126,48 +126,51 @@ Strategy.prototype.authorizationParams = function (options) {
  * @api protected
  */
 Strategy.prototype.userProfile = function(accessToken, done) {
+    var authorization = accessToken;
+    var headers = {
+        'Authorization': 'Bearer ' + authorization
+    };
+    this._oauth2._request('GET', this._userProfileURL, headers, '', '', function(err, body, res) {
+        if (err) {
+            return done(new InternalOAuthError('failed to fetch user profile', err));
+        }
 
-  var authorization =  accessToken;
-  var headers = {
-      'Authorization' : 'Bearer ' + authorization
-  };
-  this._oauth2._request('GET', this._userProfileURL, headers, '', '', function(err, body, res) {
-    if (err) { return done(new InternalOAuthError('failed to fetch user profile', err)); }
+        try {
 
-    try {
+            var json = JSON.parse(body);
 
-      var json = JSON.parse(body);
+            var profile = {
+                provider: 'spotify',
+                oauth: accessToken,
+                id: json.id,
+                username: json.id,
+                displayName: json.display_name,
+                profileUrl: json.external_urls ? json.external_urls.spotify : null,
+                photos: json.images ? json.images.map(function(image) {
+                    return image.url;
+                }) : null,
+                country: json.country || null,
+                followers: json.followers ? json.followers.total : null,
+                product: json.product || null,
+                _raw: body,
+                _json: json
+            };
 
-      var profile = {
-        provider: 'spotify',
-        oauth: accessToken,
-        id: json.id,
-        username: json.id,
-        displayName: json.display_name,
-        profileUrl: json.external_urls ? json.external_urls.spotify : null,
-        photos: json.images ? json.images.map(function(image) { return image.url; }) : null,
-        country: json.country || null,
-        followers: json.followers ? json.followers.total : null,
-        product: json.product || null,
-        _raw: body,
-        _json: json
-      };
+            if (json.email) {
+                profile.emails = [{
+                    value: json.email,
+                    type: null
+                }];
+            }
 
-      if (json.email) {
-        profile.emails = [{
-          value: json.email,
-          type: null
-        }];
-      }
-
-      done(null, profile);
-    } catch (e) {
-      done(e);
-    }
-  });
+            done(null, profile);
+        } catch (e) {
+            done(e);
+        }
+    });
 };
 
 /**
  * Expose `Strategy`.
  */
- module.exports = Strategy;
+module.exports = Strategy;

@@ -21,9 +21,9 @@ body {
  */
 
 .navbar-fixed-top {
-    border: 1;
-    border-color: gold;
-    background-color: #232323;
+  border: 1;
+  border-color: white;
+  background-color: #232323;
 }
 
 
@@ -130,8 +130,3 @@ h3 {
 /*
  * D3 styling
  */
-
-
-/*.arc {
-    fill: white;
-}*/
