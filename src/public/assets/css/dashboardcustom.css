@@ -96,3 +96,10 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+/*
+ * D3 styling
+ */
+.arc {
+    fill: white;
+}
