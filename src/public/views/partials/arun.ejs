@@ -1,7 +1,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <h3>My Most Listened To Artists</h3>
   <div class="row placeholders">
-    <%if (topArtists.length < 5) {%>
+    <%if (topArtists.length < 10) {%>
       <% for (var i=0; i < topArtists.length; i++) {%>
     <div class="col-xs-6 col-sm-2 placeholder">
       <img src="<%= topArtists[i].images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -9,7 +9,7 @@
     </div>
       <%}
       } else {%>
-      <% for (var i=0; i < 4; i++) {%>
+      <% for (var i=0; i < 9; i++) {%>
       <div class="col-xs-6 col-sm-2 placeholder">
           <img src="<%= topArtists[i].images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
           <h4><%= topArtists[i].name %></h4>
@@ -22,7 +22,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
   <h3>My Most Listened To Tracks</h3>
   <div class="row placeholders">
-    <%if (topTracks.length < 5) {%>
+    <%if (topTracks.length < 10) {%>
       <% for (var i=0; i < topTracks.length; i++) {%>
    <div class="col-xs-6 col-sm-2 placeholder">
       <img src="<%= topTracks[i].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -30,7 +30,7 @@
     </div>
     <%} %>
     <%} else {%>
-      <% for (var i=0; i < 4; i++) {%>
+      <% for (var i=0; i < 9; i++) {%>
       <div class="col-xs-6 col-sm-2 placeholder">
           <img src="<%= topTracks[i].album.images[1].url %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
           <h4><%= topTracks[i].name %></h4>
