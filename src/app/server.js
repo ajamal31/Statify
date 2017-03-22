@@ -162,9 +162,13 @@ spotifyApi.getAudioFeaturesForTracks(trackIds)
       
       dashboardPass.push({
       rank: i+1,
-      danceability: trackData[i].danceability.toPrecision(3),
-      energy: trackData[i].energy.toPrecision(3),
-      speechiness: trackData[i].speechiness.toPrecision(3)});
+      danceability: trackData[i].danceability,
+      energy: trackData[i].energy,
+      speechiness: trackData[i].speechiness,
+      acousticness:  trackData[i].acousticness,
+      liveness: trackData[i].liveness
+      });
+      
     }
     console.log(dashboardPass);
     callback(res, tracks, artists, genres, dashboardPass);

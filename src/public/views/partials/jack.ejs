@@ -63,7 +63,7 @@
 </style>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-1 main">
-  <h3>My Most Listened To Tracks</h3>
+  <h3>My Most Listened To Track Complexity</h3>
   <div class="row placeholders">
     <div id='dashboard'></div>
   </div>
@@ -72,11 +72,10 @@
 <script>
 function dashboard(id, fData){
     var barColor = 'steelblue';
-    function segColor(c){ return {danceability:"#807dba", energy:"#e08214",speechiness:"#41ab5d"}[c]; }
+    function segColor(c){ return {danceability:"#807dba", energy:"#e08214",speechiness:"#41ab5d", acousticness: "pink", liveness: "yellow"}[c]; } //, acousticness: "pink", liveness: "red"
 
     // compute total for each state.
-    fData.forEach(function(d){d.total=d.freq.danceability+d.freq.energy+d.freq.speechiness;});
-
+    fData.forEach(function(d){d.total=d.freq.danceability+d.freq.energy+d.freq.speechiness+d.freq.acousticness+d.freq.liveness;});//
     // function to handle histogram.
     function histoGram(fD){
         var hG={},    hGDim = {t: 60, r: 0, b: 30, l: 0};
@@ -191,13 +190,13 @@ function dashboard(id, fData){
         function mouseover(d){
             // call the update function of histogram with new data.
             hG.update(fData.map(function(v){
-                return [v.State,v.freq[d.data.type]];}),segColor(d.data.type));
+                return [v.State,v.freq[d.data.type].toPrecision(3)];}),segColor(d.data.type));
         }
         //Utility function to be called on mouseout a pie slice.
         function mouseout(d){
             // call the update function of histogram with all data.
             hG.update(fData.map(function(v){
-                return [v.State,v.total];}), barColor);
+                return [v.State,v.total.toPrecision(3)];}), barColor);
         }
         // Animating the pie-slice requiring a custom function which specifies
         // how the intermediate paths should be drawn.
@@ -255,7 +254,7 @@ function dashboard(id, fData){
     }
 
     // calculate total frequency by segment for all state.
-    var tF = ['danceability','energy','speechiness'].map(function(d){
+    var tF = ['danceability','energy','speechiness', 'acousticness', 'liveness'].map(function(d){ //, 'acousticness', 'liveness'
         return {type:d, freq: d3.sum(fData.map(function(t){ return t.freq[d];}))};
     });
 
@@ -271,16 +270,16 @@ function dashboard(id, fData){
 
 <script>
 var freqData=[
-{State:'1',freq:{danceability:<%= trackAnalysis[0].danceability %>, energy:<%= trackAnalysis[0].energy %>, speechiness:<%= trackAnalysis[0].speechiness %>}}
-,{State:'2',freq:{danceability:<%= trackAnalysis[1].danceability %>, energy:<%= trackAnalysis[1].energy %>, speechiness:<%= trackAnalysis[1].speechiness %>}}
-,{State:'3',freq:{danceability:<%= trackAnalysis[2].danceability %>, energy:<%= trackAnalysis[2].energy %>, speechiness:<%= trackAnalysis[2].speechiness %>}}
-,{State:'4',freq:{danceability:<%= trackAnalysis[3].danceability %>, energy:<%= trackAnalysis[3].energy %>, speechiness:<%= trackAnalysis[3].speechiness %>}}
-,{State:'5',freq:{danceability:<%= trackAnalysis[4].danceability %>, energy:<%= trackAnalysis[4].energy %>, speechiness:<%= trackAnalysis[4].speechiness %>}}
-,{State:'6',freq:{danceability:<%= trackAnalysis[5].danceability %>, energy:<%= trackAnalysis[5].energy %>, speechiness:<%= trackAnalysis[5].speechiness %>}}
-,{State:'7',freq:{danceability:<%= trackAnalysis[6].danceability %>, energy:<%= trackAnalysis[6].energy %>, speechiness:<%= trackAnalysis[6].speechiness %>}}
-,{State:'8',freq:{danceability:<%= trackAnalysis[7].danceability %>, energy:<%= trackAnalysis[7].energy %>, speechiness:<%= trackAnalysis[7].speechiness %>}}
-,{State:'9',freq:{danceability:<%= trackAnalysis[8].danceability %>, energy:<%= trackAnalysis[8].energy %>, speechiness:<%= trackAnalysis[8].speechiness %>}}
-,{State:'10',freq:{danceability:<%= trackAnalysis[9].danceability %>, energy:<%= trackAnalysis[9].energy %>, speechiness:<%= trackAnalysis[9].speechiness %>}}
+{State:'1',freq:{danceability:<%= trackAnalysis[0].danceability %>, energy:<%= trackAnalysis[0].energy %>, speechiness:<%= trackAnalysis[0].acousticness %>, acousticness:<%= trackAnalysis[0].acousticness %>, liveness:<%= trackAnalysis[0].liveness %>}}
+,{State:'2',freq:{danceability:<%= trackAnalysis[1].danceability %>, energy:<%= trackAnalysis[1].energy %>, speechiness:<%= trackAnalysis[1].speechiness %>, acousticness:<%= trackAnalysis[1].acousticness %>, liveness:<%= trackAnalysis[1].liveness %>}}
+,{State:'3',freq:{danceability:<%= trackAnalysis[2].danceability %>, energy:<%= trackAnalysis[2].energy %>, speechiness:<%= trackAnalysis[2].speechiness %>, acousticness:<%= trackAnalysis[2].acousticness %>, liveness:<%= trackAnalysis[2].liveness %>}}
+,{State:'4',freq:{danceability:<%= trackAnalysis[3].danceability %>, energy:<%= trackAnalysis[3].energy %>, speechiness:<%= trackAnalysis[3].speechiness %>, acousticness:<%= trackAnalysis[3].acousticness %>, liveness:<%= trackAnalysis[3].liveness %>}}
+,{State:'5',freq:{danceability:<%= trackAnalysis[4].danceability %>, energy:<%= trackAnalysis[4].energy %>, speechiness:<%= trackAnalysis[4].speechiness %>, acousticness:<%= trackAnalysis[4].acousticness %>, liveness:<%= trackAnalysis[4].liveness %>}}
+,{State:'6',freq:{danceability:<%= trackAnalysis[5].danceability %>, energy:<%= trackAnalysis[5].energy %>, speechiness:<%= trackAnalysis[5].speechiness %>, acousticness:<%= trackAnalysis[5].acousticness %>, liveness:<%= trackAnalysis[5].liveness %>}}
+,{State:'7',freq:{danceability:<%= trackAnalysis[6].danceability %>, energy:<%= trackAnalysis[6].energy %>, speechiness:<%= trackAnalysis[6].speechiness %>, acousticness:<%= trackAnalysis[6].acousticness %>, liveness:<%= trackAnalysis[6].liveness %>}}
+,{State:'8',freq:{danceability:<%= trackAnalysis[7].danceability %>, energy:<%= trackAnalysis[7].energy %>, speechiness:<%= trackAnalysis[7].speechiness %>, acousticness:<%= trackAnalysis[7].acousticness %>, liveness:<%= trackAnalysis[7].liveness %>}}
+,{State:'9',freq:{danceability:<%= trackAnalysis[8].danceability %>, energy:<%= trackAnalysis[8].energy %>, speechiness:<%= trackAnalysis[8].speechiness %>, acousticness:<%= trackAnalysis[8].acousticness %>, liveness:<%= trackAnalysis[8].liveness %>}}
+,{State:'10',freq:{danceability:<%= trackAnalysis[9].danceability %>, energy:<%= trackAnalysis[9].energy %>, speechiness:<%= trackAnalysis[9].speechiness %>, acousticness:<%= trackAnalysis[9].acousticness %>, liveness:<%= trackAnalysis[9].liveness %>}}
 ];
 console.log("running");
 console.log(freqData);
