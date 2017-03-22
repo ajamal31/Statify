@@ -1,3 +1,10 @@
+<style type="text/css">
+    .arc {
+        fill: #192015;
+        stroke: #ffa834;
+    }
+</style>
+
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row placeholders">
         <h3 class="text-justify">Your Current Popular Tracks</h3>
@@ -27,25 +34,29 @@
 </div>
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="row placeholders" id="dialRow" >
+    <div class="row placeholders" id="dialRow">
         <h3 class="text-justify">Track Analysis</h3>
-        <script>
-            var svg = d3.select("#dialRow")
-                .append("svg")
-                .attr("width", 200)
-                .attr("height", 200)
-                .append("g")
-                .attr("transform", "translate(300,100)");
+        <% var musicAtr = ['Danceabilty', 'Energy', 'Loudness', 'Speechiness', 'Acousticness', 'Instrumentalness'] %>
+        <% for(var i = 0; i < 6; i++) { %>
+            <div class="col-lg-2" id="test<%= i %>">
+                <p>
+                    <%= musicAtr[i] %>
+                </p>
+                <script type="text/javascript">
+                    var vis = d3.select("#test<%= i %>").append("svg")
 
-            var arc = d3.svg.arc()
-                .innerRadius(50)
-                .outerRadius(70)
-                .startAngle(0)
-                .endAngle(1);
+                    var arc = d3.svg.arc()
+                        .innerRadius(60)
+                        .outerRadius(70)
+                        .startAngle(-2) //converting from degs to radians
+                        .endAngle(2) //just radians
 
-            svg.append("path")
-                .attr("class", "arc")
-                .attr("d", arc);
-        </script>
+                    vis.append("path")
+                        .attr("d", arc)
+                        .attr("class", "arc")
+                        .attr("transform", "translate(70,75)")
+                </script>
+            </div>
+            <% } %>
     </div>
 </div>
