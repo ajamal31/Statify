@@ -1,20 +1,20 @@
-<!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
+    circle,
     path {
-        stroke: #fff;
-        fill-rule: evenodd;
+        cursor: pointer;
+    }
+    circle {
+        fill: none;
+        pointer-events: all;
     }
 
     text {
         font-family: Arial, sans-serif;
         font-size: 12px;
     }
-
 </style>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
 
     var width = 960,
@@ -44,7 +44,12 @@
         .innerRadius(function(d) { return Math.max(0, y(d.y)); })
         .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
 
-    d3.json("../assets/JSON/flare.json", function(error, root) {
+    //"../assets/JSON/flare.json"
+    //JSON.stringify({name: 'test', children: trackData}
+    //d3.json(JSON.stringify({name: 'test', children: JSON.stringify(trackData)}), function(error, root) {
+
+
+        var root = <%- trackDat %>
         var g = svg.selectAll("g")
             .data(partition.nodes(root))
             .enter().append("g");
@@ -81,7 +86,6 @@
                     }
                 });
         }
-    });
 
     d3.select(self.frameElement).style("height", height + "px");
 
@@ -102,3 +106,4 @@
     }
 
 </script>
+</body>

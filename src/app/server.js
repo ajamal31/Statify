@@ -88,10 +88,6 @@ app.get('/login', function(req, res) {
     res.render('login.ejs');
 });
 
-app.get('/sunburst', function (req, res) {
-    res.render('sunburst.ejs');
-});
-
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting
@@ -137,24 +133,17 @@ function requestData(req, res) {
 }
 
 // render the home page
-function renderHome(res, tracks, artists, genres, trackStats) {
-  console.log("trackstats:");
-  console.log(trackStats);
+function renderHome(res, tracks, artists, trackDat, trackStats) {
+ // console.log("trackstats:");
+ // console.log(trackStats);
     res.render('home.ejs',
     {
         topTracks: tracks,
         topArtists: artists,
-        topGenres: genres,
+        trackDat: trackDat,
         trackAnalysis: trackStats
     }
     );
-}
-
-function sunburstData(spotifyAPi, res, tracks, artists, callback) {
-
-    spotifyAPi.getAvailableGenreSeeds().then(function (data) {
-        console.log(data.body);
-    });
 }
 
 function dashboardData(spotifyApi, res, tracks, artists, genres, callback){
@@ -166,7 +155,7 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback){
   /* Get Audio Features for a Track */
 spotifyApi.getAudioFeaturesForTracks(trackIds)
   .then(function(data) {
-    console.log(data.body); 
+    //console.log(data.body);
     var dashboardPass = [];
     var trackData = data.body.audio_features;
     for (i = 0; i < trackData.length; i++) {
@@ -181,23 +170,49 @@ spotifyApi.getAudioFeaturesForTracks(trackIds)
       });
       
     }
-    console.log(dashboardPass);
+    //console.log(dashboardPass);
     callback(res, tracks, artists, genres, dashboardPass);
   }, function(err) {
     done(err);
   });
 }
-// get the genres for your top tracks
-function makeGenres(spotifyApi, res, tracks, artists, callback) {
-    var trackIds = [];
 
-    // Used to store multiple ids.
-    for (i = 0; i < tracks.length; i++) {
-      trackIds.push(tracks[i].artists[0].id);
+// get the genres for your top tracks
+function sunburstData(spotifyApi, res, tracks, artists, callback) {
+    var albumDat = [];
+    var artistsDat = [];
+    var trackDat = [];
+    var sunDat = [];
+
+    for (i = 0; i < artists.length; i++) {
+        for (j = 0; j < tracks.length; j++) {
+
+            //if (tracks[j].artists.name == artists[i].name) {
+
+                trackDat.push({
+                    name: tracks[j].name,
+                    size: tracks[j].duration_ms
+                });
+            //}
+        }
+
+        var obj = {
+            name : artists[i].name,
+            children : trackDat
+        }
+        sunDat.push(obj);
+        trackDat = [];
     }
 
+    trackDat = JSON.stringify({name: 'Statify', children: sunDat});
+
+    trackJSON = JSON.parse(trackDat);
+    console.log(trackJSON);
+
+    callback(spotifyApi, res, tracks, artists, trackDat, renderHome);
+
     // Gets all the genres and make a callback.
-    spotifyApi.getArtists(trackIds, function(err, data) {
+   /* spotifyApi.getArtists(trackIds, function(err, data) {
         if (err) {
             console.error('Something went wrong in getArtists request!');
         } else {
@@ -208,7 +223,7 @@ function makeGenres(spotifyApi, res, tracks, artists, callback) {
             }
             callback(spotifyApi, res, tracks, artists, genres, renderHome);
         }
-    });
+    });*/
 }
 
 // Gets top 10 tracks
@@ -220,7 +235,7 @@ function requestTracks(spotifyApi, res, callback) {
         if (err) {
             console.error('Something went wrong in tracks request!');
         } else {
-            callback(spotifyApi, res, data.body.items, makeGenres);
+            callback(spotifyApi, res, data.body.items, sunburstData);
         }
     });
 }
