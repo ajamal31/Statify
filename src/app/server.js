@@ -133,14 +133,14 @@ function requestData(req, res) {
 }
 
 // render the home page
-function renderHome(res, tracks, artists, trackDat, trackStats) {
+function renderHome(res, tracks, artists, sunDat, trackStats) {
  // console.log("trackstats:");
  // console.log(trackStats);
     res.render('home.ejs',
     {
         topTracks: tracks,
         topArtists: artists,
-        trackDat: trackDat,
+        sunDat: sunDat,
         trackAnalysis: trackStats
     }
     );
@@ -177,39 +177,78 @@ spotifyApi.getAudioFeaturesForTracks(trackIds)
   });
 }
 
+
+function getAlbums(albums, tracks) {
+
+    var flag;
+    for (i = 0; i < tracks.length; i++) {
+        var album = {
+            artist: tracks[i].artists[0].name,
+            album: tracks[i].album
+        };
+        flag = 0;
+        for (k = 0; k < albums.length; k++) {
+            if (albums[k].album.id === album.album.id) {
+                flag = 1;
+                break;
+            }
+
+        }
+        if (flag === 0)
+        albums.push(album);
+
+
+    }
+    console.log(albums);
+}
+
+/*function getArtistDat(allArtists, tracks) {
+    for (i = 0; i < tracks.length; i++) {
+
+    }
+}*/
+
+
 // get the genres for your top tracks
 function sunburstData(spotifyApi, res, tracks, artists, callback) {
     var albumDat = [];
-    var artistsDat = [];
+    var artistDat = [];
     var trackDat = [];
     var sunDat = [];
+    var albums = [];
+    var allArtists = [];
 
-    for (i = 0; i < artists.length; i++) {
+    getAlbums(albums, tracks);
+
+
+    for (i = 0; i < albums.length; i++) {
+
         for (j = 0; j < tracks.length; j++) {
 
-            //if (tracks[j].artists.name == artists[i].name) {
+            if (tracks[j].artists[0].name === albums[i].artist) {
 
                 trackDat.push({
                     name: tracks[j].name,
-                    size: tracks[j].duration_ms
+                    size: 500
                 });
-            //}
+            }
         }
 
-        var obj = {
-            name : artists[i].name,
-            children : trackDat
-        }
-        sunDat.push(obj);
+        albumDat.push({
+            name: albums[i].album.name,
+            children: trackDat
+        });
+
         trackDat = [];
+
     }
 
-    trackDat = JSON.stringify({name: 'Statify', children: sunDat});
+    sunDat = JSON.stringify({name: 'Statify', children: albumDat});
 
-    trackJSON = JSON.parse(trackDat);
+    var trackJSON = JSON.parse(sunDat);
     console.log(trackJSON);
 
-    callback(spotifyApi, res, tracks, artists, trackDat, renderHome);
+    callback(spotifyApi, res, tracks, artists, sunDat, renderHome);
 
     // Gets all the genres and make a callback.
    /* spotifyApi.getArtists(trackIds, function(err, data) {
