@@ -195,18 +195,28 @@ function getAlbums(albums, tracks) {
 
         }
         if (flag === 0)
-        albums.push(album);
+            albums.push(album);
 
 
     }
-    console.log(albums);
 }
 
-/*function getArtistDat(allArtists, tracks) {
+function getAllArtists(allArtists, tracks) {
+    var flag;
     for (i = 0; i < tracks.length; i++) {
+        var artist = tracks[i].artists[0];
+        flag = 0;
+        for (k = 0; k < allArtists.length; k++) {
+            if (allArtists[k].id === artist.id || allArtists[k].name === artist.name) {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 0)
+            allArtists.push(artist);
 
     }
-}*/
+}
 
 
 // get the genres for your top tracks
@@ -219,31 +229,43 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
     var allArtists = [];
 
     getAlbums(albums, tracks);
+    getAllArtists(allArtists, tracks);
 
+    for (k = 0; k < allArtists.length; k++) {
 
-    for (i = 0; i < albums.length; i++) {
+        for (i = 0; i < albums.length; i++) {
 
-        for (j = 0; j < tracks.length; j++) {
+            for (j = 0; j < tracks.length; j++) {
 
-            if (tracks[j].album.id === albums[i].album.id) {
+                if (tracks[j].album.id === albums[i].album.id) {
 
-                trackDat.push({
-                    name: tracks[j].name,
-                    size: 500
+                    trackDat.push({
+                        name: tracks[j].name,
+                        size: 500
+                    });
+                }
+            }
+
+            if (albums[i].artist === allArtists[k].name) {
+                albumDat.push({
+                    name: albums[i].album.name,
+                    children: trackDat
                 });
             }
+
+            trackDat = [];
+
         }
 
-        albumDat.push({
-            name: albums[i].album.name,
-            children: trackDat
+        artistDat.push({
+            name: allArtists[k].name,
+            children: albumDat
         });
 
-        trackDat = [];
-
+        albumDat = [];
     }
 
-    sunDat = JSON.stringify({name: 'Statify', children: albumDat});
+    sunDat = JSON.stringify({name: 'Statify', children: artistDat});
 
     var trackJSON = JSON.parse(sunDat);
     console.log(trackJSON);
