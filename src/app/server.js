@@ -36,24 +36,23 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and spotify
 //   profile), and invoke a callback with a user object.
 passport.use(new SpotifyStrategy({
-    clientID: appKey,
-    clientSecret: appSecret,
-    callbackURL: 'http://localhost:8888/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function() {
-      // To keep the example simple, the user's spotify profile is returned to
-      // represent the logged-in user. In a typical application, you would want
-      // to associate the spotify account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  })
-);
+        clientID: appKey,
+        clientSecret: appSecret,
+        callbackURL: 'http://localhost:8888/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function() {
+            // To keep the example simple, the user's spotify profile is returned to
+            // represent the logged-in user. In a typical application, you would want
+            // to associate the spotify account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+        });
+    }));
 
 var app = express();
-
+// app.require('express-debug');
 // tell the server where the views are
 app.set('views', __dirname + '/../public/views');
 app.set('view engine', 'ejs');
@@ -88,7 +87,7 @@ app.get('/login', function(req, res) {
     res.render('login.ejs');
 });
 
-app.get('/sunburst', function (req, res) {
+app.get('/sunburst', function(req, res) {
     res.render('sunburst.ejs');
 });
 
@@ -138,54 +137,57 @@ function requestData(req, res) {
 
 // render the home page
 function renderHome(res, tracks, artists, genres, trackStats) {
-  console.log("trackstats:");
-  console.log(trackStats);
-    res.render('home.ejs',
-    {
+    // console.log("trackstats:");
+    // console.log(trackStats);
+    res.render('home.ejs', {
         topTracks: tracks,
         topArtists: artists,
         topGenres: genres,
         trackAnalysis: trackStats
-    }
-    );
+    });
 }
 
 function sunburstData(spotifyAPi, res, tracks, artists, callback) {
 
-    spotifyAPi.getAvailableGenreSeeds().then(function (data) {
-        console.log(data.body);
+    spotifyAPi.getAvailableGenreSeeds().then(function(data) {
+        // console.log(data.body);
     });
 }
 
-function dashboardData(spotifyApi, res, tracks, artists, genres, callback){
-  var trackIds = [];
-  //store the analysis for the tracks
-  for (i = 0; i < 10; i++) {
-    trackIds.push(tracks[i].id);
-  }
-  /* Get Audio Features for a Track */
-spotifyApi.getAudioFeaturesForTracks(trackIds)
-  .then(function(data) {
-    console.log(data.body); 
-    var dashboardPass = [];
-    var trackData = data.body.audio_features;
-    for (i = 0; i < trackData.length; i++) {
-      
-      dashboardPass.push({
-      rank: i+1,
-      danceability: trackData[i].danceability,
-      energy: trackData[i].energy,
-      speechiness: trackData[i].speechiness,
-      acousticness:  trackData[i].acousticness,
-      liveness: trackData[i].liveness
-      });
-      
+function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
+    var trackIds = [];
+    //store the analysis for the tracks
+    for (i = 0; i < 10; i++) {
+        trackIds.push(tracks[i].id);
     }
-    console.log(dashboardPass);
-    callback(res, tracks, artists, genres, dashboardPass);
-  }, function(err) {
-    done(err);
-  });
+    /* Get Audio Features for a Track */
+    spotifyApi.getAudioFeaturesForTracks(trackIds)
+        .then(function(data) {
+            // console.log(data.body);
+            var dashboardPass = [];
+            var trackData = data.body.audio_features;
+            for (i = 0; i < trackData.length; i++) {
+                dashboardPass.push({
+                    rank: i + 1,
+                    id: trackData[i].id,
+                    danceability: trackData[i].danceability,
+                    energy: trackData[i].energy,
+                    loudness: trackData[i].loudness,
+                    mode: trackData[i].mode,
+                    tempo: trackData[i].tempo,
+                    valence: trackData[i].valence,
+                    key: trackData[i].key,
+                    speechiness: trackData[i].speechiness,
+                    acousticness: trackData[i].acousticness,
+                    instrumentalness: trackData[i].instrumentalness,
+                    liveness: trackData[i].liveness
+                });
+            }
+            // console.log(dashboardPass);
+            callback(res, tracks, artists, genres, dashboardPass);
+        }, function(err) {
+            done(err);
+        });
 }
 // get the genres for your top tracks
 function makeGenres(spotifyApi, res, tracks, artists, callback) {
@@ -193,7 +195,7 @@ function makeGenres(spotifyApi, res, tracks, artists, callback) {
 
     // Used to store multiple ids.
     for (i = 0; i < tracks.length; i++) {
-      trackIds.push(tracks[i].artists[0].id);
+        trackIds.push(tracks[i].artists[0].id);
     }
 
     // Gets all the genres and make a callback.
@@ -204,7 +206,7 @@ function makeGenres(spotifyApi, res, tracks, artists, callback) {
             var genres = [];
             var gnrArtists = data.body.artists;
             for (i = 0; i < gnrArtists.length; i++) {
-              genres.push(gnrArtists[i].genres);
+                genres.push(gnrArtists[i].genres);
             }
             callback(spotifyApi, res, tracks, artists, genres, renderHome);
         }
@@ -220,6 +222,7 @@ function requestTracks(spotifyApi, res, callback) {
         if (err) {
             console.error('Something went wrong in tracks request!');
         } else {
+            // console.log(data.body.items);
             callback(spotifyApi, res, data.body.items, makeGenres);
         }
     });

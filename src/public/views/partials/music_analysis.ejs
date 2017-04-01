@@ -1,32 +1,211 @@
 <style type="text/css">
-    .arc {
+    /*#test .arc2 {
+        stroke-weight: 0.1;
+        fill: #3660b0;
+    }*/
+
+    .track-analysis-box {
+        background: none;
+        border-radius: 5px;
+        color: #000;
+    }
+    /*
+    #div1,
+    #div2,
+    #div3,
+    #div4 {
+        width: 33%;
+        height: 200px;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    #div2 .arc {
+        stroke-weight: 0.1;
+        fill: #f0a417;
+    }
+
+    #div2 .arc2 {
+        stroke-weight: 0.1;
+        fill: #b00d08;
+    }
+
+    #div3 .arc {
+        stroke-weight: 0.1;
+        fill: #1d871b;
+    }*/
+
+    .selectedRadial {
+        border-radius: 3px;
+        background: #f4f4f4;
+        color: #000;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(200, 200, 200, 0.85);
+    }
+
+    .radial {
+        border-radius: 3px;
+        background: none;
+    }
+
+    .background {
+        fill: #FFFFFF;
+        fill-opacity: 0.01;
+    }
+
+    .component {
         fill: #192015;
+    }
+
+    .component .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        fill: white;
+    }
+
+    .arc {
+        stroke-weight: 0.1;
+        fill: #ffa834;
         stroke: #ffa834;
+    }
+
+    .arc2 {
+        stroke-weight: 0.1;
+        fill: #ffa834;
+        stroke: none;
+    }
+
+    .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        fill: #ffa834;
+    }
+
+    .radial-svg {
+        display: block;
+        margin: 0 auto;
+        fill: blue;
     }
 </style>
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row placeholders">
         <h3 class="text-justify">Your Current Popular Tracks</h3>
-        <% for(var i = 0; i < 10;) { %>
+        <% for(var i = 0; i < 10; i++) { %>
             <div class="col">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
-                    </div>
-                    <div class="col-lg-4">
-                        <p class="text-left">
-                            <%= topTracks[i++].name %>
-                        </p>
+                        <h3><%= i + 1%></h3>
                     </div>
                     <div class="col-lg-2">
-                        <img src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
+                        <img class="track-img" track-id="<%= topTracks[i].id %>" src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <p class="text-left">
-                            <%= topTracks[i++].name %>
+                            <%= topTracks[i].name %>
                         </p>
                     </div>
+                </div>
+                <div class="row track-analysis-box" id="<%= topTracks[i].id %>">
+                    <div class="col-lg-1 radial">
+                        <div id="danceability<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="energy<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="loudness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="speechiness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="acousticness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="instrumentalness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="liveness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="valence<%= topTracks[i].id %>"></div>
+                    </div>
+
+                    <script language="JavaScript">
+                        var div1 = d3.select(document.getElementById('danceability<%= topTracks[i].id %>'));
+                        console.log(div1);
+                        div1.attr("class", "radial");
+                        start();
+
+                        function start() {
+                            console.log(<%= trackAnalysis[i].danceability %>);
+                            radialProgress(document.getElementById('danceability<%= topTracks[i].id %>'))
+                                .label("Danceability")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].danceability %>)
+                                .render();
+
+                            radialProgress(document.getElementById('energy<%= topTracks[i].id %>'))
+                                .label("Energy")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].energy %>)
+                                .render();
+
+                            radialProgress(document.getElementById('loudness<%= topTracks[i].id %>'))
+                                .label("Loudness")
+                                .diameter(150)
+                                .minValue(-60)
+                                .maxValue(0)
+                                .value(<%= trackAnalysis[i].loudness %>)
+                                .render();
+
+                            radialProgress(document.getElementById('loudness<%= topTracks[i].id %>'))
+                                .label("Loudness")
+                                .diameter(150)
+                                .minValue(-60)
+                                .maxValue(0)
+                                .value(<%= trackAnalysis[i].loudness %>)
+                                .render();
+
+                            radialProgress(document.getElementById('speechiness<%= topTracks[i].id %>'))
+                                .label("speechiness")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].speechiness %>)
+                                .render();
+
+                            radialProgress(document.getElementById('acousticness<%= topTracks[i].id %>'))
+                                .label("Acousticness")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].acousticness %>)
+                                .render();
+
+                            radialProgress(document.getElementById('instrumentalness<%= topTracks[i].id %>'))
+                                .label("Instrumentalness")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].instrumentalness %>)
+                                .render();
+
+                            radialProgress(document.getElementById('liveness<%= topTracks[i].id %>'))
+                                .label("Liveness")
+                                .diameter(150)
+                                .minValue(0)
+                                .maxValue(1)
+                                .value(<%= trackAnalysis[i].liveness %>)
+                                .render();
+                        }
+                    </script>
                 </div>
             </div>
             <% } %>
@@ -36,27 +215,8 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row placeholders" id="dialRow">
         <h3 class="text-justify">Track Analysis</h3>
-        <% var musicAtr = ['Danceabilty', 'Energy', 'Loudness', 'Speechiness', 'Acousticness', 'Instrumentalness'] %>
-        <% for(var i = 0; i < 6; i++) { %>
-            <div class="col-lg-2" id="test<%= i %>">
-                <p>
-                    <%= musicAtr[i] %>
-                </p>
-                <script type="text/javascript">
-                    var vis = d3.select("#test<%= i %>").append("svg")
-
-                    var arc = d3.svg.arc()
-                        .innerRadius(60)
-                        .outerRadius(70)
-                        .startAngle(-2) //converting from degs to radians
-                        .endAngle(2) //just radians
-
-                    vis.append("path")
-                        .attr("d", arc)
-                        .attr("class", "arc")
-                        .attr("transform", "translate(70,75)")
-                </script>
-            </div>
-            <% } %>
+        <% for (var i = 0; i < trackAnalysis.length; i++) { %>
+            <% console.log(trackAnalysis[i]); %>
+                <% } %>
     </div>
 </div>
