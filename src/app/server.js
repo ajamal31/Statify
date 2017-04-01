@@ -212,9 +212,29 @@ function getAllArtists(allArtists, tracks) {
                 break;
             }
         }
-        if (flag == 0)
+        if (flag === 0)
             allArtists.push(artist);
 
+    }
+}
+
+function getAllTracks(allTracks, tracks) {
+    var flag;
+    for (i = 0; i < tracks.length; i++) {
+        var track = {
+            track: tracks[i],
+            userPopularity: 250
+        };
+        flag = 0;
+        for (k = 0; k < allTracks.length; k++) {
+            if (allTracks[k].track.id === track.track.id) {
+                allTracks[k].userPopularity = (allTracks[k].userPopularity + 250);
+                flag = 1;
+                break;
+            }
+        }
+        if (flag === 0)
+            allTracks.push(track);
     }
 }
 
@@ -227,27 +247,30 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
     var sunDat = [];
     var albums = [];
     var allArtists = [];
+    var allTracks = [];
 
     getAlbums(albums, tracks);
     getAllArtists(allArtists, tracks);
+    getAllTracks(allTracks, tracks);
 
     for (k = 0; k < allArtists.length; k++) {
 
         for (i = 0; i < albums.length; i++) {
 
-            for (j = 0; j < tracks.length; j++) {
+            for (j = 0; j < allTracks.length; j++) {
 
-                if (tracks[j].album.id === albums[i].album.id) {
+                if (allTracks[j].track.album.id === albums[i].album.id) {
 
                     trackDat.push({
-                        name: tracks[j].name,
-                        description: tracks[j].name,
-                        size: 500
+                        name: allTracks[j].track.name,
+                        description: allTracks[j].track.name,
+                        size: allTracks[j].userPopularity
                     });
                 }
             }
 
             if (albums[i].artist === allArtists[k].name) {
+
                 albumDat.push({
                     name: albums[i].album.name,
                     description: albums[i].album.name,
@@ -271,23 +294,9 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
     sunDat = JSON.stringify({name: 'Statify', description: 'Statify', children: artistDat});
 
     var trackJSON = JSON.parse(sunDat);
-    console.log(trackJSON);
+    //console.log(trackJSON);
 
     callback(spotifyApi, res, tracks, artists, sunDat, renderHome);
-
-    // Gets all the genres and make a callback.
-   /* spotifyApi.getArtists(trackIds, function(err, data) {
-        if (err) {
-            console.error('Something went wrong in getArtists request!');
-        } else {
-            var genres = [];
-            var gnrArtists = data.body.artists;
-            for (i = 0; i < gnrArtists.length; i++) {
-              genres.push(gnrArtists[i].genres);
-            }
-            callback(spotifyApi, res, tracks, artists, genres, renderHome);
-        }
-    });*/
 }
 
 // Gets top 10 tracks
