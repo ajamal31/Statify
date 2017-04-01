@@ -225,7 +225,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
 
         for (j = 0; j < tracks.length; j++) {
 
-            if (tracks[j].artists[0].name === albums[i].artist) {
+            if (tracks[j].album.id === albums[i].album.id) {
 
                 trackDat.push({
                     name: tracks[j].name,
