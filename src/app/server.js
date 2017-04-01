@@ -241,6 +241,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
 
                     trackDat.push({
                         name: tracks[j].name,
+                        description: tracks[j].name,
                         size: 500
                     });
                 }
@@ -249,6 +250,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
             if (albums[i].artist === allArtists[k].name) {
                 albumDat.push({
                     name: albums[i].album.name,
+                    description: albums[i].album.name,
                     children: trackDat
                 });
             }
@@ -259,13 +261,14 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
 
         artistDat.push({
             name: allArtists[k].name,
+            description: allArtists[k].name,
             children: albumDat
         });
 
         albumDat = [];
     }
 
-    sunDat = JSON.stringify({name: 'Statify', children: artistDat});
+    sunDat = JSON.stringify({name: 'Statify', description: 'Statify', children: artistDat});
 
     var trackJSON = JSON.parse(sunDat);
     console.log(trackJSON);
