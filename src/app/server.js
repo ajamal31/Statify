@@ -259,7 +259,8 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
                     trackDat.push({
                         name: allTracks[j].track.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                         description: allTracks[j].track.name,
-                        size: allTracks[j].numPlays
+                        size: allTracks[j].numPlays,
+                        level: 0
                     });
                 }
             }
@@ -269,7 +270,8 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
                 albumDat.push({
                     name: albums[i].album.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                     description: albums[i].album.name,
-                    children: trackDat
+                    children: trackDat,
+                    level: 2
                 });
             }
 
@@ -280,7 +282,8 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
         artistDat.push({
             name: allArtists[k].name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
             description: allArtists[k].name,
-            children: albumDat
+            children: albumDat,
+            level: 1
         });
 
         albumDat = [];

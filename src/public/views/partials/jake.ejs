@@ -33,7 +33,8 @@
     function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
     //var hue = d3.scale.ordinal().range(["#4B4A4B", "#FFA834", "#72BB53"]);
-    var hue = d3.scale.ordinal().range(["#FFA834", "#72BB53"]);
+    //var hue = d3.scale.ordinal(0, 1).range(["#FFA834", "#72BB53"]);
+    var hue = d3.scale.ordinal(0, 1, 2).range(["#777777", "#FFA834", "#72BB53"]);
 
     var luminance = d3.scale.sqrt()
         .domain([0, 1e6])
@@ -114,6 +115,7 @@
             .forEach(function(d) {
                 d._children = d.children;
                 d.sum = d.value;
+                d.lev = d.level;
                 d.key = key(d);
                 d.fill = fill(d);
             });
@@ -251,8 +253,8 @@
 
     function fill(d) {
         var p = d;
-        while (p.depth > 1) p = p.parent;
-        var c = d3.lab(hue(p.name));
+        //while (p.depth > 1) p = p.parent;
+        var c = d3.lab(hue(p.lev));
         c.l = luminance(d.sum);
         return c;
     }
