@@ -12,6 +12,7 @@
     }
 
     #tooltip { background-color: white;
+        color: black;
         padding: 3px 5px;
         border: 1px solid black;
         text-align: center;
@@ -31,12 +32,13 @@
 
     function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
-    var hue = d3.scale.ordinal().range(["#4B4A4B", "#F37600", "#003805"]);
+    //var hue = d3.scale.ordinal().range(["#4B4A4B", "#FFA834", "#72BB53"]);
+    var hue = d3.scale.ordinal().range(["#FFA834", "#72BB53"]);
 
     var luminance = d3.scale.sqrt()
         .domain([0, 1e6])
         .clamp(true)
-        .range([50, 20]);
+        .range([65, 20]);
 
     var svg = d3.select("body").append("svg")
         .attr("width", margin.left + margin.right)
@@ -77,7 +79,7 @@
     }
 
     function mouseOverArc(d) {
-        d3.select(this).attr("stroke","black")
+        d3.select(this).attr("stroke","black");
 
         tooltip.html(format_description(d));
         return tooltip.transition()
@@ -96,7 +98,7 @@
             .style("left", (d3.event.pageX+10)+"px");
     }
 
-    var root_ = null;
+   // var root_ = null;
     d3.json("../assets/JSON/flare-labeled.json", function(error, root) {
 
         root = <%- sunDat %>

@@ -192,12 +192,9 @@ function getAlbums(albums, tracks) {
                 flag = 1;
                 break;
             }
-
         }
         if (flag === 0)
             albums.push(album);
-
-
     }
 }
 
@@ -223,12 +220,12 @@ function getAllTracks(allTracks, tracks) {
     for (i = 0; i < tracks.length; i++) {
         var track = {
             track: tracks[i],
-            userPopularity: 250
+            numPlays: 1
         };
         flag = 0;
         for (k = 0; k < allTracks.length; k++) {
             if (allTracks[k].track.id === track.track.id) {
-                allTracks[k].userPopularity = (allTracks[k].userPopularity + 250);
+                allTracks[k].numPlays = (allTracks[k].numPlays + 1);
                 flag = 1;
                 break;
             }
@@ -238,8 +235,6 @@ function getAllTracks(allTracks, tracks) {
     }
 }
 
-
-// get the genres for your top tracks
 function sunburstData(spotifyApi, res, tracks, artists, callback) {
     var albumDat = [];
     var artistDat = [];
@@ -264,7 +259,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
                     trackDat.push({
                         name: allTracks[j].track.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                         description: allTracks[j].track.name,
-                        size: allTracks[j].userPopularity
+                        size: allTracks[j].numPlays
                     });
                 }
             }
@@ -292,9 +287,6 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
     }
 
     sunDat = JSON.stringify({name: 'Statify', description: 'Statify', children: artistDat});
-
-    var trackJSON = JSON.parse(sunDat);
-    //console.log(trackJSON);
 
     callback(spotifyApi, res, tracks, artists, sunDat, renderHome);
 }
