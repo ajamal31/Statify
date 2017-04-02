@@ -32,13 +32,11 @@
     function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
     var hue = d3.scale.ordinal().range(["#4B4A4B", "#F37600", "#003805"]);
-    //var hue = d3.scale.category10().range(["#00A61C", "#8CDE8D", "#B3B2B3", "#4B4A4B"]);
-    //var hue = d3.scale.linear().domain([-1, 1]).range(["#00A61C", "#81DE05"]);
 
     var luminance = d3.scale.sqrt()
         .domain([0, 1e6])
         .clamp(true)
-        .range([90, 20]);
+        .range([50, 20]);
 
     var svg = d3.select("body").append("svg")
         .attr("width", margin.left + margin.right)
