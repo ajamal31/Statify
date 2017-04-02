@@ -262,7 +262,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
                 if (allTracks[j].track.album.id === albums[i].album.id) {
 
                     trackDat.push({
-                        name: allTracks[j].track.name,
+                        name: allTracks[j].track.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                         description: allTracks[j].track.name,
                         size: allTracks[j].userPopularity
                     });
@@ -272,7 +272,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
             if (albums[i].artist === allArtists[k].name) {
 
                 albumDat.push({
-                    name: albums[i].album.name,
+                    name: albums[i].album.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                     description: albums[i].album.name,
                     children: trackDat
                 });
@@ -283,7 +283,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
         }
 
         artistDat.push({
-            name: allArtists[k].name,
+            name: allArtists[k].name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
             description: allArtists[k].name,
             children: albumDat
         });

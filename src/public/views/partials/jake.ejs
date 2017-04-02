@@ -19,19 +19,20 @@
 
     html {
         font-family: sans-serif;
-
     }
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="../assets/colors/colors.js"></script>
 <script>
 
     var margin = {top: 350, right: 480, bottom: 350, left: 480},
         radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
-    function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14};
+    function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
-    var hue = d3.scale.category10();
+    var hue = d3.scale.category10("#00A61C", "#81DE05");
+    //var hue = d3.scale.linear().domain([-1, 1]).range(["#00A61C", "#81DE05"]);
 
     var luminance = d3.scale.sqrt()
         .domain([0, 1e6])
@@ -60,7 +61,7 @@
         .attr("id", "tooltip")
         .style("position", "absolute")
         .style("z-index", "10")
-        .style("opacity", 0);
+        .style("opacity", 0.9);
 
     function format_number(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -73,9 +74,7 @@
     }
 
     function computeTextRotation(d) {
-        var angle=(d.x +d.dx/2)*180/Math.PI - 90
-
-        return angle;
+        return (d.x +d.dx/2)*180/Math.PI - 90;
     }
 
     function mouseOverArc(d) {
@@ -99,11 +98,11 @@
     }
 
     var root_ = null;
-    //d3.json("../assets/JSON/flare-labeled.json", function(error, root) {
+    d3.json("../assets/JSON/flare-labeled.json", function(error, root) {
 
-        var root = <%- sunDat %>
+        root = <%- sunDat %>
 
-       // if (error) return console.warn(error);
+        if (error) return console.warn(error);
         // Compute the initial layout on the entire tree to sum sizes.
         // Also compute the full name and fill color for each node,
         // and stash the children so they can be restored as we descend.
@@ -142,7 +141,6 @@
             .on("mouseover", mouseOverArc)
             .on("mousemove", mouseMoveArc)
             .on("mouseout", mouseOutArc);
-
 
         var texts = svg.selectAll("text")
             .data(partitioned_data)
@@ -191,7 +189,7 @@
             // Entering outside arcs start from the old layout.
             if (root === p) enterArc = outsideArc, exitArc = insideArc, outsideAngle.range([p.x, p.x + p.dx]);
 
-            var new_data=partition.nodes(root).slice(1)
+            var new_data = partition.nodes(root).slice(1)
 
             path = path.data(new_data, function(d) { return d.key; });
 
@@ -242,7 +240,7 @@
 
 
         }
-    //});
+    });
 
     function key(d) {
         var k = [], p = d;
@@ -273,4 +271,3 @@
     d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
 
 </script>
-</body>
