@@ -21,9 +21,9 @@ body {
  */
 
 .navbar-fixed-top {
-  border: 1;
-  border-color: white;
-  background-color: #232323;
+    border: 1;
+    border-color: white;
+    background-color: #232323;
 }
 
 
@@ -74,9 +74,10 @@ body {
  * Main content
  */
 
-.main {
+
+/*.main {
     padding: 20px;
-}
+}*/
 
 @media (min-width: 768px) {
     .main {
@@ -95,7 +96,8 @@ body {
  */
 
 .placeholders {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    /*width: 900px;*/
     text-align: center;
     background-color: #192015;
 }
@@ -127,6 +129,15 @@ h3 {
 }
 
 
+/*.div.row.placeholders {
+
+}*/
+
+
 /*
  * D3 styling
  */
+
+.col-lg-1 {
+    margin: 20px;
+}

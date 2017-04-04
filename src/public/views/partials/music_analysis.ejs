@@ -96,19 +96,19 @@
             <div class="col">
                 <div class="row">
                     <div class="col-lg-2">
-                        <h3><%= i + 1%></h3>
+                        <h3><%= i + 1 %></h3>
                     </div>
                     <div class="col-lg-2">
                         <img class="track-img" track-id="<%= topTracks[i].id %>" src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-4">
                         <p class="text-left">
-                            <%= topTracks[i].name %>
+                            <h3><%= topTracks[i].name %></h3>
                         </p>
                     </div>
                 </div>
-                <div class="row track-analysis-box" id="<%= topTracks[i].id %>">
-                    <div class="col-lg-1 radial">
+                <div class="row track-analysis-box" id="analysis<%= topTracks[i].id %>">
+                    <div class="col-lg-1">
                         <div id="danceability<%= topTracks[i].id %>"></div>
                     </div>
                     <div class="col-lg-1">
@@ -134,76 +134,39 @@
                     </div>
 
                     <script language="JavaScript">
-                        var div1 = d3.select(document.getElementById('danceability<%= topTracks[i].id %>'));
-                        console.log(div1);
-                        div1.attr("class", "radial");
                         start();
+                        var attributes = {
+                            danceability: <%= trackAnalysis[i].danceability %>,
+                            energy: <%= trackAnalysis[i].energy %>,
+                            loudness: <%= trackAnalysis[i].loudness %>,
+                            speechiness: <%= trackAnalysis[i].speechiness%>,
+                            acousticness: <%= trackAnalysis[i].acousticness %>,
+                            instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
+                            liveness: <%= trackAnalysis[i].liveness %>,
+                            valence: <%= trackAnalysis[i].valence %>
+                        };
 
                         function start() {
-                            console.log(<%= trackAnalysis[i].danceability %>);
-                            radialProgress(document.getElementById('danceability<%= topTracks[i].id %>'))
-                                .label("Danceability")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].danceability %>)
-                                .render();
-
-                            radialProgress(document.getElementById('energy<%= topTracks[i].id %>'))
-                                .label("Energy")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].energy %>)
-                                .render();
-
-                            radialProgress(document.getElementById('loudness<%= topTracks[i].id %>'))
-                                .label("Loudness")
-                                .diameter(150)
-                                .minValue(-60)
-                                .maxValue(0)
-                                .value(<%= trackAnalysis[i].loudness %>)
-                                .render();
-
-                            radialProgress(document.getElementById('loudness<%= topTracks[i].id %>'))
-                                .label("Loudness")
-                                .diameter(150)
-                                .minValue(-60)
-                                .maxValue(0)
-                                .value(<%= trackAnalysis[i].loudness %>)
-                                .render();
-
-                            radialProgress(document.getElementById('speechiness<%= topTracks[i].id %>'))
-                                .label("speechiness")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].speechiness %>)
-                                .render();
-
-                            radialProgress(document.getElementById('acousticness<%= topTracks[i].id %>'))
-                                .label("Acousticness")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].acousticness %>)
-                                .render();
-
-                            radialProgress(document.getElementById('instrumentalness<%= topTracks[i].id %>'))
-                                .label("Instrumentalness")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].instrumentalness %>)
-                                .render();
-
-                            radialProgress(document.getElementById('liveness<%= topTracks[i].id %>'))
-                                .label("Liveness")
-                                .diameter(150)
-                                .minValue(0)
-                                .maxValue(1)
-                                .value(<%= trackAnalysis[i].liveness %>)
-                                .render();
+                            for (var attribute in attributes) {
+                                console.log(attribute);
+                                if (attribute == 'loudness') {
+                                    radialProgress(document.getElementById(attribute + '<%= topTracks[i].id %>'))
+                                        .label(attribute)
+                                        .diameter(150)
+                                        .minValue(-60)
+                                        .maxValue(0)
+                                        .value(attributes[attribute])
+                                        .render();
+                                } else {
+                                    radialProgress(document.getElementById(attribute + '<%= topTracks[i].id %>'))
+                                        .label(attribute)
+                                        .diameter(150)
+                                        .minValue(0)
+                                        .maxValue(1)
+                                        .value(attributes[attribute])
+                                        .render();
+                                }
+                            }
                         }
                     </script>
                 </div>
