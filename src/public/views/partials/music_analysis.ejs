@@ -101,9 +101,14 @@
                     <div class="col-lg-2">
                         <img class="track-img" track-id="<%= topTracks[i].id %>" src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <p class="text-left">
                             <h3><%= topTracks[i].name %></h3>
+                        </p>
+                    </div>
+                    <div class="col-lg-2">
+                        <p class="text-left">
+                            <h4>Mode: <%= trackAnalysis[i].mode %></h4>
                         </p>
                     </div>
                 </div>
@@ -135,18 +140,19 @@
 
                     <script language="JavaScript">
                         start();
-                        var attributes = {
-                            danceability: <%= trackAnalysis[i].danceability %>,
-                            energy: <%= trackAnalysis[i].energy %>,
-                            loudness: <%= trackAnalysis[i].loudness %>,
-                            speechiness: <%= trackAnalysis[i].speechiness%>,
-                            acousticness: <%= trackAnalysis[i].acousticness %>,
-                            instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
-                            liveness: <%= trackAnalysis[i].liveness %>,
-                            valence: <%= trackAnalysis[i].valence %>
-                        };
-
+                        var attributes;
                         function start() {
+                            attributes = {
+                                danceability: <%= trackAnalysis[i].danceability %>,
+                                energy: <%= trackAnalysis[i].energy %>,
+                                loudness: <%= trackAnalysis[i].loudness %>,
+                                speechiness: <%= trackAnalysis[i].speechiness%>,
+                                acousticness: <%= trackAnalysis[i].acousticness %>,
+                                instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
+                                liveness: <%= trackAnalysis[i].liveness %>,
+                                valence: <%= trackAnalysis[i].valence %>
+                            };
+
                             for (var attribute in attributes) {
                                 console.log(attribute);
                                 if (attribute == 'loudness') {
@@ -175,11 +181,7 @@
     </div>
 </div>
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="row placeholders" id="dialRow">
-        <h3 class="text-justify">Track Analysis</h3>
+
         <% for (var i = 0; i < trackAnalysis.length; i++) { %>
             <% console.log(trackAnalysis[i]); %>
                 <% } %>
-    </div>
-</div>

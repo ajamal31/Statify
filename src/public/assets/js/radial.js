@@ -80,7 +80,6 @@ function radialProgress(parent) {
                 .attr("cursor", "pointer")
                 .on("click", onMouseClick);
 
-
             _arc.endAngle(360 * (Math.PI / 180))
 
             background.append("rect")
