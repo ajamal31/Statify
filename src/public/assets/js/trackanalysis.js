@@ -17,7 +17,3 @@ $(document).ready(function() {
     });
 
 });
-
-
-// var trackID = $(this).attr('track-id');
-// $('#analysis' + trackID).toggle();
