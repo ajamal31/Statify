@@ -1,61 +1,151 @@
 <style type="text/css">
-    .arc {
+    .track-analysis-box {
+        background: none;
+        border-radius: 5px;
+        color: #000;
+    }
+
+    .selectedRadial {
+        border-radius: 3px;
+        background: #f4f4f4;
+        color: #000;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(200, 200, 200, 0.85);
+    }
+
+    .radial {
+        border-radius: 3px;
+        background: none;
+    }
+
+    .background {
+        fill: #FFFFFF;
+        fill-opacity: 0.01;
+    }
+
+    .component {
         fill: #192015;
+    }
+
+    .component .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        fill: white;
+    }
+
+    .arc {
+        stroke-weight: 0.1;
+        fill: #ffa834;
         stroke: #ffa834;
+    }
+
+    .arc2 {
+        stroke-weight: 0.1;
+        fill: #ffa834;
+        stroke: none;
+    }
+
+    .label {
+        font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+        text-anchor: middle;
+        fill: #ffa834;
+    }
+
+    .radial-svg {
+        display: block;
+        margin: 0 auto;
+        fill: blue;
     }
 </style>
 
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row placeholders">
         <h3 class="text-justify">Your Current Popular Tracks</h3>
-        <% for(var i = 0; i < 10;) { %>
+        <% for(var i = 0; i < 10; i++) { %>
             <div class="col">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
+                        <h3><%= i + 1 %></h3>
+                    </div>
+                    <div class="col-lg-2">
+                        <img class="track-img" track-id="<%= topTracks[i].id %>" src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
                     </div>
                     <div class="col-lg-4">
                         <p class="text-left">
-                            <%= topTracks[i++].name %>
+                            <h3><%= topTracks[i].name %></h3>
                         </p>
                     </div>
                     <div class="col-lg-2">
-                        <img src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
-                    </div>
-                    <div class="col-lg-4">
                         <p class="text-left">
-                            <%= topTracks[i++].name %>
+                            <h4>Mode: <%= trackAnalysis[i].mode %></h4>
                         </p>
                     </div>
                 </div>
-            </div>
-            <% } %>
-    </div>
-</div>
+                <div class="row track-analysis-box" id="analysis<%= topTracks[i].id %>">
+                    <div class="col-lg-1">
+                        <div id="danceability<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="energy<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="loudness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="speechiness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="acousticness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="instrumentalness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="liveness<%= topTracks[i].id %>"></div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div id="valence<%= topTracks[i].id %>"></div>
+                    </div>
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="row placeholders" id="dialRow">
-        <h3 class="text-justify">Track Analysis</h3>
-        <% var musicAtr = ['Danceabilty', 'Energy', 'Loudness', 'Speechiness', 'Acousticness', 'Instrumentalness'] %>
-        <% for(var i = 0; i < 6; i++) { %>
-            <div class="col-lg-2" id="test<%= i %>">
-                <p>
-                    <%= musicAtr[i] %>
-                </p>
-                <script type="text/javascript">
-                    var vis = d3.select("#test<%= i %>").append("svg")
+                    <script language="JavaScript">
+                        start();
+                        var attributes;
+                        function start() {
+                            attributes = {
+                                danceability: <%= trackAnalysis[i].danceability %>,
+                                energy: <%= trackAnalysis[i].energy %>,
+                                loudness: <%= trackAnalysis[i].loudness %>,
+                                speechiness: <%= trackAnalysis[i].speechiness%>,
+                                acousticness: <%= trackAnalysis[i].acousticness %>,
+                                instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
+                                liveness: <%= trackAnalysis[i].liveness %>,
+                                valence: <%= trackAnalysis[i].valence %>
+                            };
 
-                    var arc = d3.svg.arc()
-                        .innerRadius(60)
-                        .outerRadius(70)
-                        .startAngle(-2) //converting from degs to radians
-                        .endAngle(2) //just radians
-
-                    vis.append("path")
-                        .attr("d", arc)
-                        .attr("class", "arc")
-                        .attr("transform", "translate(70,75)")
-                </script>
+                            for (var attribute in attributes) {
+                                console.log(attribute);
+                                if (attribute == 'loudness') {
+                                    radialProgress(document.getElementById(attribute + '<%= topTracks[i].id %>'))
+                                        .label(attribute)
+                                        .diameter(150)
+                                        .minValue(-60)
+                                        .maxValue(0)
+                                        .value(attributes[attribute])
+                                        .render();
+                                } else {
+                                    radialProgress(document.getElementById(attribute + '<%= topTracks[i].id %>'))
+                                        .label(attribute)
+                                        .diameter(150)
+                                        .minValue(0)
+                                        .maxValue(1)
+                                        .value(attributes[attribute])
+                                        .render();
+                                }
+                            }
+                        }
+                    </script>
+                </div>
             </div>
             <% } %>
     </div>
