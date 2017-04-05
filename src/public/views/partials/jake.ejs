@@ -36,9 +36,9 @@
     var hue = d3.scale.ordinal(0, 1, 2).range(["#777777", "#FFA834", "#72BB53"]);
 
     var luminance = d3.scale.sqrt()
-        .domain([0, 1e6])
+        .domain([0, 30])
         .clamp(true)
-        .range([65, 20]);
+        .range([85, 35]);
 
     var svg = d3.select("body").append("svg")
         .attr("width", margin.left + margin.right)
@@ -71,7 +71,7 @@
 
     function format_description(d) {
         var description = d.description;
-        return  '<b>' + d.description + '</b> <br> # of plays: (' + format_number(d.value) + ')';
+        return  '<b>' + d.description + '</b> <br> # of times in top 50: (' + format_number(d.value) + ')';
     }
 
     function computeTextRotation(d) {
