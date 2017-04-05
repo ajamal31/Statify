@@ -25,7 +25,10 @@ body {
     border-color: white;
     background-color: #232323;
 }
-
+.navbar a {
+  text-decoration: none;
+  color: white;
+}
 .navbar button {
   position: relative;
   left: 91%;
@@ -35,7 +38,6 @@ body {
   border: 0;  
   
 }
-
 .navbar button:hover {
   background: #82BD03;
 }
