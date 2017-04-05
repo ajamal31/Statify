@@ -21,9 +21,9 @@ body {
  */
 
 .navbar-fixed-top {
-  border: 1;
-  border-color: white;
-  background-color: #232323;
+    border: 1;
+    border-color: white;
+    background-color: #232323;
 }
 
 
@@ -74,8 +74,10 @@ body {
  * Main content
  */
 
+
 .main {
-    padding: 20px;
+    margin-left: 65px;
+    margin-bottom: 5px;
 }
 
 @media (min-width: 768px) {
@@ -95,9 +97,12 @@ body {
  */
 
 .placeholders {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-align: center;
     background-color: #192015;
+    width: 1100px;
+    /*height: 500px;*/
+    box-sizing: border-box;
 }
 
 .placeholders h4 {
@@ -128,7 +133,14 @@ h3 {
     color: #ffa834;
 }
 
-
 /*
  * D3 styling
  */
+
+.col-lg-1 {
+    margin: 20px;
+}
+
+.img-responsive {
+    padding: 10px;
+}
