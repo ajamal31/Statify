@@ -121,7 +121,7 @@ app.get('/callback',
 
 app.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/logout');
+    res.redirect('/login');
 });
 
 // Gets all the data (tracks, artists...) and passes to the view.
