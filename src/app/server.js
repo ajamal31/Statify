@@ -36,24 +36,23 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and spotify
 //   profile), and invoke a callback with a user object.
 passport.use(new SpotifyStrategy({
-    clientID: appKey,
-    clientSecret: appSecret,
-    callbackURL: 'http://localhost:8888/callback'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function() {
-      // To keep the example simple, the user's spotify profile is returned to
-      // represent the logged-in user. In a typical application, you would want
-      // to associate the spotify account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  })
-);
+        clientID: appKey,
+        clientSecret: appSecret,
+        callbackURL: 'http://localhost:8888/callback'
+    },
+    function(accessToken, refreshToken, profile, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function() {
+            // To keep the example simple, the user's spotify profile is returned to
+            // represent the logged-in user. In a typical application, you would want
+            // to associate the spotify account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+        });
+    }));
 
 var app = express();
-
+// app.require('express-debug');
 // tell the server where the views are
 app.set('views', __dirname + '/../public/views');
 app.set('view engine', 'ejs');
@@ -88,6 +87,10 @@ app.get('/login', function(req, res) {
     res.render('login.ejs');
 });
 
+app.get('/sunburst', function(req, res) {
+    res.render('sunburst.ejs');
+});
+
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting
@@ -118,7 +121,7 @@ app.get('/callback',
 
 app.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/logout');
+    res.redirect('/login');
 });
 
 // Gets all the data (tracks, artists...) and passes to the view.
@@ -134,52 +137,55 @@ function requestData(req, res) {
 
 // render the home page
 function renderHome(res, tracks, artists, sunDat, trackStats) {
- // console.log("trackstats:");
- // console.log(trackStats);
-    res.render('home.ejs',
-    {
+    res.render('home.ejs', {
         topTracks: tracks,
         topArtists: artists,
         sunDat: sunDat,
         trackAnalysis: trackStats
-    }
-    );
+    });
 }
 
-function dashboardData(spotifyApi, res, tracks, artists, genres, callback){
-  var trackIds = [];
-  //store the analysis for the tracks
-  for (i = 0; i < 10; i++) {
-    trackIds.push(tracks[i].id);
-  }
-  /* Get Audio Features for a Track */
-spotifyApi.getAudioFeaturesForTracks(trackIds)
-  .then(function(data) {
-    //console.log(data.body);
-    var dashboardPass = [];
-    var trackData = data.body.audio_features;
-    for (i = 0; i < trackData.length; i++) {
-      
-      dashboardPass.push({
-      rank: i+1,
-      danceability: trackData[i].danceability,
-      energy: trackData[i].energy,
-      speechiness: trackData[i].speechiness,
-      acousticness:  trackData[i].acousticness,
-      liveness: trackData[i].liveness
-      });
-      
+function sunburstData(spotifyAPi, res, tracks, artists, callback) {
+    spotifyAPi.getAvailableGenreSeeds().then(function(data) {});
+}
+
+function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
+    var trackIds = [];
+    //store the analysis for the tracks
+    for (i = 0; i < 10; i++) {
+        trackIds.push(tracks[i].id);
     }
-    //console.log(dashboardPass);
-    callback(res, tracks, artists, genres, dashboardPass);
-  }, function(err) {
-    done(err);
-  });
+    /* Get Audio Features for a Track */
+    spotifyApi.getAudioFeaturesForTracks(trackIds)
+        .then(function(data) {
+            // console.log(data.body);
+            var dashboardPass = [];
+            var trackData = data.body.audio_features;
+            for (i = 0; i < trackData.length; i++) {
+                dashboardPass.push({
+                    rank: i + 1,
+                    id: trackData[i].id,
+                    danceability: trackData[i].danceability,
+                    energy: trackData[i].energy,
+                    loudness: trackData[i].loudness,
+                    mode: trackData[i].mode,
+                    tempo: trackData[i].tempo,
+                    valence: trackData[i].valence,
+                    key: trackData[i].key,
+                    speechiness: trackData[i].speechiness,
+                    acousticness: trackData[i].acousticness,
+                    instrumentalness: trackData[i].instrumentalness,
+                    liveness: trackData[i].liveness
+                });
+            }
+            callback(res, tracks, artists, genres, dashboardPass);
+        }, function(err) {
+            done(err);
+        });
 }
 
 
 function getAlbums(albums, tracks) {
-
     var flag;
     for (i = 0; i < tracks.length; i++) {
         var album = {
@@ -211,7 +217,6 @@ function getAllArtists(allArtists, tracks) {
         }
         if (flag === 0)
             allArtists.push(artist);
-
     }
 }
 
@@ -255,7 +260,6 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
             for (j = 0; j < allTracks.length; j++) {
 
                 if (allTracks[j].track.album.id === albums[i].album.id) {
-
                     trackDat.push({
                         name: allTracks[j].track.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                         description: allTracks[j].track.name,
@@ -266,7 +270,6 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
             }
 
             if (albums[i].artist === allArtists[k].name) {
-
                 albumDat.push({
                     name: albums[i].album.name.substring(0, allArtists.length < 15 ? allArtists.length : 13),
                     description: albums[i].album.name,
@@ -289,7 +292,11 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
         albumDat = [];
     }
 
-    sunDat = JSON.stringify({name: 'Statify', description: 'Statify', children: artistDat});
+    sunDat = JSON.stringify({
+        name: 'Statify',
+        description: 'Statify',
+        children: artistDat
+    });
 
     callback(spotifyApi, res, tracks, artists, sunDat, renderHome);
 }
@@ -307,6 +314,7 @@ function requestTracks(spotifyApi, res, callback) {
         }
     });
 }
+
 // Gets top 10 artists
 function requestArtists(spotifyApi, res, tracks, callback) {
     spotifyApi.getMyTopArtists({

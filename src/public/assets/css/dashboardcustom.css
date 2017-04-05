@@ -21,12 +21,26 @@ body {
  */
 
 .navbar-fixed-top {
-  border: 1;
-  border-color: white;
-  background-color: #232323;
+    border: 1;
+    border-color: white;
+    background-color: #232323;
 }
-
-
+.navbar a {
+  text-decoration: none;
+  color: white;
+}
+.navbar button {
+  position: relative;
+  left: 91%;
+  top: 14px;
+  background: #649000;
+  border-radius: 5px;
+  border: 0;  
+  
+}
+.navbar button:hover {
+  background: #82BD03;
+}
 /*
  * Sidebar
  */
@@ -74,8 +88,10 @@ body {
  * Main content
  */
 
+
 .main {
-    padding: 20px;
+    margin-left: 65px;
+    margin-bottom: 5px;
 }
 
 @media (min-width: 768px) {
@@ -95,9 +111,12 @@ body {
  */
 
 .placeholders {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-align: center;
     background-color: #192015;
+    width: 1100px;
+    /*height: 500px;*/
+    box-sizing: border-box;
 }
 
 .placeholders h4 {
@@ -111,6 +130,8 @@ body {
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
+    width: 125px;
+    height: 125px;
 }
 
 
@@ -126,7 +147,14 @@ h3 {
     color: #ffa834;
 }
 
-
 /*
  * D3 styling
  */
+
+.col-lg-1 {
+    margin: 20px;
+}
+
+.img-responsive {
+    padding: 10px;
+}
