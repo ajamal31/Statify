@@ -64,7 +64,24 @@
     <div class="row placeholders">
      <h3 style="text-align:left;">My Track Complexity</h3>
         <div id='dashboard'></div>
+           <h3 class="text-justify">My Most Listened To Tracks</h3>
+    <%if (topTracks.length < 10) {%>
+      <% for (var i=0; i < topTracks.length; i++) {%>
+   <div class="col-xs-6 col-sm-2 placeholder">
+      <img src="<%= topTracks[i].album.images[1].url %>" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4><%= topTracks[i].name %></h4>
     </div>
+    <%} %>
+    <%} else {%>
+      <% for (var i=0; i < 10; i++) {%>
+      <div class="col-xs-6 col-sm-2 placeholder">
+          <img src="<%= topTracks[i].album.images[1].url %>" class="img-responsive" alt="Generic placeholder thumbnail">
+          <h4><%= topTracks[i].name %></h4>
+      </div>
+      <%} %>
+      <%}%>
+    </div>
+    
 </div>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
