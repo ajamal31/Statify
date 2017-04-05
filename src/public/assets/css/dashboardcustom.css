@@ -25,8 +25,22 @@ body {
     border-color: white;
     background-color: #232323;
 }
-
-
+.navbar a {
+  text-decoration: none;
+  color: white;
+}
+.navbar button {
+  position: relative;
+  left: 91%;
+  top: 14px;
+  background: #649000;
+  border-radius: 5px;
+  border: 0;  
+  
+}
+.navbar button:hover {
+  background: #82BD03;
+}
 /*
  * Sidebar
  */
@@ -116,6 +130,8 @@ body {
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
+    width: 125px;
+    height: 125px;
 }
 
 

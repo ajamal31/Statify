@@ -61,8 +61,8 @@
 </style>
 
 <div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-1 main">
-    <h3>My Most Listened To Track Complexity</h3>
     <div class="row placeholders">
+     <h3 style="text-align:left;">My Track Complexity</h3>
         <div id='dashboard'></div>
     </div>
 </div>
@@ -73,11 +73,11 @@
 
         function segColor(c) {
             return {
-                danceability: "#807dba",
-                energy: "#e08214",
-                speechiness: "#41ab5d",
-                acousticness: "pink",
-                liveness: "yellow"
+                danceability: "#ffcf07",
+                energy: "#ed4900",
+                speechiness: "#ed00a4",
+                acousticness: "#902c00",
+                liveness: "#F15854"
             }[c];
         } //, acousticness: "pink", liveness: "red"
 
@@ -101,7 +101,8 @@
             var hGsvg = d3.select(id).append("svg")
                 .attr("width", hGDim.w + hGDim.l + hGDim.r)
                 .attr("height", hGDim.h + hGDim.t + hGDim.b).append("g")
-                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")");
+                .attr("transform", "translate(" + hGDim.l + "," + hGDim.t + ")")
+                .attr("fill", "white");
 
             // create function for x-axis mapping.
             var x = d3.scale.ordinal().rangeRoundBands([0, hGDim.w], 0.1)
