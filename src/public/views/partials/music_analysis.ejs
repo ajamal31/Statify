@@ -5,16 +5,14 @@
             <div class="row track-row" track-row-id="<%= topTracks[i].id %>">
                 <div class="col">
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-1">
                             <h3><%= i + 1 %></h3>
                         </div>
                         <div class="col-lg-2">
                             <img class="track-img" track-id="<%= topTracks[i].id %>" src="<%= topTracks[i].album.images[1].url %>" width="120" height="120">
                         </div>
-                        <div class="col-lg-4">
-                            <p class="text-left">
-                                <h3><%= topTracks[i].name %></h3>
-                            </p>
+                        <div class="col-lg-6">
+                            <h3 class="text-left"><%= topTracks[i].name %></h3>
                         </div>
                         <div class="col-lg-2">
                             <div class="row">
