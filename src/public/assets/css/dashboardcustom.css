@@ -156,6 +156,14 @@ body {
   padding-left:0px;
   padding-right: 0px;
 }
+#about th {
+  text-align: center;
+  min-width: 100px;
+  border-color:#ffa834;
+}
+#about .table-sm td{
+  border-color:#ffa834;
+}
 /* Default tags for text styling */
 
 p {
