@@ -184,6 +184,7 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
         });
 }
 
+// Convert spotify's int mode value and convert it into Major or Minor Text.
 function convertMode(mode) {
     if (mode == 1) {
         return 'Major';
@@ -192,6 +193,7 @@ function convertMode(mode) {
     }
 }
 
+// Convert spotify's int key value to the keys used in musical notes.
 function convertKey(key) {
     if (key == 0) {
         return 'C';

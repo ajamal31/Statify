@@ -18,15 +18,13 @@
                         </div>
                         <div class="col-lg-2">
                             <div class="row">
-                                    <h4 class="text-left">Mode: <%= trackAnalysis[i].mode %></h4>
+                                <h4 class="text-left">Mode: <%= trackAnalysis[i].mode %></h4>
                             </div>
                             <div class="row">
-                                    <h4 class="text-left">Key: <%= trackAnalysis[i].key %></h4>
+                                <h4 class="text-left">Key: <%= trackAnalysis[i].key %></h4>
                             </div>
                             <div class="row">
-
-                                    <h4 class="text-left">Tempo: <%= trackAnalysis[i].tempo %></h4>
-
+                                <h4 class="text-left">Tempo: <%= trackAnalysis[i].tempo %></h4>
                             </div>
                         </div>
                     </div>
@@ -59,6 +57,7 @@
                         <script language="JavaScript">
                             start();
                             var attributes;
+
                             function start() {
                                 attributes = {
                                     danceability: <%= trackAnalysis[i].danceability %>,
@@ -96,9 +95,6 @@
                     </div>
                 </div>
             </div>
-            <% } %>
-            <% for (var i = 0; i < trackAnalysis.length; i++) { %>
-            <% console.log(trackAnalysis[i]); %>
-                <% } %>
+        <% } %>
     </div>
 </div>
