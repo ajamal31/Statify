@@ -158,7 +158,6 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
     /* Get Audio Features for a Track */
     spotifyApi.getAudioFeaturesForTracks(trackIds)
         .then(function(data) {
-            // console.log(data.body);
             var dashboardPass = [];
             var trackData = data.body.audio_features;
             for (i = 0; i < trackData.length; i++) {
