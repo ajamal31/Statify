@@ -1,4 +1,5 @@
 /* Need a header here */
+/*jslint node: true */
 
 /* Comment need: why are these lines here? */
 var express = require('express'),
@@ -7,9 +8,7 @@ var express = require('express'),
     methodOverride = require('method-override'),
     session = require('express-session'),
     passport = require('passport'),
-    swig = require('swig'),
     SpotifyStrategy = require('./passport-spotify/index').Strategy,
-    consolidate = require('consolidate'),
     SpotifyWebApi = require('spotify-web-api-node');
 
 // API needs these to communicate with Spotify's database
@@ -52,7 +51,6 @@ passport.use(new SpotifyStrategy({
     }));
 
 var app = express();
-// app.require('express-debug');
 // tell the server where the views are
 app.set('views', __dirname + '/../public/views');
 app.set('view engine', 'ejs');
@@ -85,10 +83,6 @@ app.get('/', function(req, res) {
 
 app.get('/login', function(req, res) {
     res.render('login.ejs');
-});
-
-app.get('/sunburst', function(req, res) {
-    res.render('sunburst.ejs');
 });
 
 // GET /auth/spotify
@@ -152,7 +146,7 @@ function sunburstData(spotifyAPi, res, tracks, artists, callback) {
 function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
     var trackIds = [];
     //store the analysis for the tracks
-    for (i = 0; i < 10; i++) {
+    for (var i = 0; i < 10; i++) {
         trackIds.push(tracks[i].id);
     }
     /* Get Audio Features for a Track */
@@ -160,7 +154,7 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
         .then(function(data) {
             var dashboardPass = [];
             var trackData = data.body.audio_features;
-            for (i = 0; i < trackData.length; i++) {
+            for (var i = 0; i < trackData.length; i++) {
                 dashboardPass.push({
                     rank: i + 1,
                     id: trackData[i].id,
@@ -194,7 +188,7 @@ function convertMode(mode) {
 
 // Convert spotify's int key value to the keys used in musical notes.
 function convertKey(key) {
-    if (key == 0) {
+    if (key === 0) {
         return 'C';
     } else if (key == 1) {
         return 'C♯/D♭';
@@ -224,13 +218,13 @@ function convertKey(key) {
 
 function getAlbums(albums, tracks) {
     var flag;
-    for (i = 0; i < tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
         var album = {
             artist: tracks[i].artists[0].name,
             album: tracks[i].album
         };
         flag = 0;
-        for (k = 0; k < albums.length; k++) {
+        for (var k = 0; k < albums.length; k++) {
             if (albums[k].album.id === album.album.id) {
                 flag = 1;
                 break;
@@ -243,10 +237,10 @@ function getAlbums(albums, tracks) {
 
 function getAllArtists(allArtists, tracks) {
     var flag;
-    for (i = 0; i < tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
         var artist = tracks[i].artists[0];
         flag = 0;
-        for (k = 0; k < allArtists.length; k++) {
+        for (var k = 0; k < allArtists.length; k++) {
             if (allArtists[k].id === artist.id || allArtists[k].name === artist.name) {
                 flag = 1;
                 break;
@@ -259,13 +253,13 @@ function getAllArtists(allArtists, tracks) {
 
 function getAllTracks(allTracks, tracks) {
     var flag;
-    for (i = 0; i < tracks.length; i++) {
+    for (var i = 0; i < tracks.length; i++) {
         var track = {
             track: tracks[i],
             numPlays: 1
         };
         flag = 0;
-        for (k = 0; k < allTracks.length; k++) {
+        for (var k = 0; k < allTracks.length; k++) {
             if (allTracks[k].track.id === track.track.id) {
                 allTracks[k].numPlays = (allTracks[k].numPlays + 1);
                 flag = 1;
@@ -290,11 +284,11 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
     getAllArtists(allArtists, tracks);
     getAllTracks(allTracks, tracks);
 
-    for (k = 0; k < allArtists.length; k++) {
+    for (var k = 0; k < allArtists.length; k++) {
 
-        for (i = 0; i < albums.length; i++) {
+        for (var i = 0; i < albums.length; i++) {
 
-            for (j = 0; j < allTracks.length; j++) {
+            for (var j = 0; j < allTracks.length; j++) {
 
                 if (allTracks[j].track.album.id === albums[i].album.id) {
                     trackDat.push({
