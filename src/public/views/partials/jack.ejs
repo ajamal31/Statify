@@ -272,14 +272,14 @@
             function mouseover(d) {
                 // call the update function of histogram with new data.
                 hG.update(fData.map(function(v) {
-                    return [v.State, v.freq[d.data.type].toPrecision(3)];
+                    return [v.State, v.freq[d.data.type].toFixed(3)];
                 }), segColor(d.data.type));
             }
             //Utility function to be called on mouseout a pie slice.
             function mouseout(d) {
                 // call the update function of histogram with all data.
                 hG.update(fData.map(function(v) {
-                    return [v.State, v.total.toPrecision(3)];
+                    return [v.State, v.total.toFixed(3)];
                 }), barColor);
             }
             // Animating the pie-slice requiring a custom function which specifies
@@ -319,7 +319,7 @@
             // create the third column for each segment.
             tr.append("td").attr("class", 'legendFreq')
                 .text(function(d) {
-                    return d3.format(",")(d.freq.toPrecision(3));
+                    return d3.format(",")(d.freq.toFixed(3));
                 });
 
             // create the fourth column for each segment.
@@ -335,7 +335,7 @@
 
                 // update the frequencies.
                 l.select(".legendFreq").text(function(d) {
-                    return d3.format(",")(d.freq.toPrecision(3));
+                    return d3.format(",")(d.freq.toFixed(3));
                 });
 
                 // update the percentage column.
@@ -365,7 +365,7 @@
 
         // calculate total frequency by state for all segment.
         var sF = fData.map(function(d) {
-            return [d.State, d.total.toPrecision(3)];
+            return [d.State, d.total.toFixed(3)];
         });
 
         var hG = histoGram(sF), // create the histogram.
