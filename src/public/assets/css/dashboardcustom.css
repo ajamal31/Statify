@@ -127,14 +127,35 @@ body {
     margin-bottom: 20px;
 }
 
-.placeholder img {
-    display: inline-block;
-    border-radius: 50%;
-    width: 125px;
-    height: 125px;
+#top-artists .placeholder img {
+    border: 1px solid;
+    border-color: #ffa834;
+    width: 110px;
+    height: 110px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top:0px;
+  padding-bottom:0px;
+    
 }
-
-
+#top-artists .placeholder{
+  width: 10%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#top-tracks .placeholder{
+  width: 10%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#top-tracks .img-responsive{
+  border: 1px solid;
+  border-color: #ffa834;
+  padding-top:0px;
+  padding-bottom:0px;
+  padding-left:0px;
+  padding-right: 0px;
+}
 /* Default tags for text styling */
 
 p {
