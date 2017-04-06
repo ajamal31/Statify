@@ -47,6 +47,7 @@
 
 .label {
     font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+    font-size: 15px;
     text-anchor: middle;
     fill: #ffa834;
 }
@@ -69,7 +70,28 @@
     padding: 20px;
 }
 
-.track-img{
+.track-img {
     border: 1px solid;
     border-color: #ffa834;
+}
+
+#analysis-instruction {
+    font-style: italic;
+    margin-left: 14px;
+}
+
+.analysis-btn, .analysis-btn:hover {
+    background-color: #0c1508;
+    color: white;
+    border-color: #ffa834;
+}
+
+.analysis-btn:active, .analysis-btn:focus {
+    background-color: #0c1508;
+    color: #ffa834;
+    border-color: #ffa834;
+}
+
+.analysis-btn-col {
+    margin: 0px;
 }
