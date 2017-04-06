@@ -127,13 +127,19 @@ body {
     margin-bottom: 20px;
 }
 
-.placeholder img {
+#top-artists .placeholder img {
     display: inline-block;
-    border-radius: 50%;
+    border-radius: 0%;
     width: 125px;
     height: 125px;
+    padding-left: 0px;
+  padding-right: 0px
 }
-
+#top-artists .placeholder{
+  width: 10%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
 #top-tracks .placeholder{
   width: 10%;
   padding-left: 0px;
