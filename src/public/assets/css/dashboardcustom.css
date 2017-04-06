@@ -128,12 +128,15 @@ body {
 }
 
 #top-artists .placeholder img {
-    display: inline-block;
-    border-radius: 0%;
-    width: 125px;
-    height: 125px;
+    border: 1px solid;
+    border-color: #ffa834;
+    width: 110px;
+    height: 110px;
     padding-left: 0px;
-  padding-right: 0px
+    padding-right: 0px;
+    padding-top:0px;
+  padding-bottom:0px;
+    
 }
 #top-artists .placeholder{
   width: 10%;
@@ -145,8 +148,11 @@ body {
   padding-left: 0px;
   padding-right: 0px;
 }
-#top-tracks .placeholder img{
-  border-radius:0%;
+#top-tracks .img-responsive{
+  border: 1px solid;
+  border-color: #ffa834;
+  padding-top:0px;
+  padding-bottom:0px;
   padding-left:0px;
   padding-right: 0px;
 }
