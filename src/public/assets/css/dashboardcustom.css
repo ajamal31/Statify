@@ -134,6 +134,16 @@ body {
     height: 125px;
 }
 
+#top-tracks .placeholder{
+  width: 10%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+#top-tracks .placeholder img{
+  border-radius:0%;
+  padding-left:0px;
+  padding-right: 0px;
+}
 /* Default tags for text styling */
 
 p {
