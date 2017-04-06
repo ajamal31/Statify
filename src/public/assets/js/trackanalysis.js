@@ -13,6 +13,10 @@ $(document).ready(function() {
             $('#analysis' + $(this).attr('track-id')).hide(300);
         });
 
+    $('.track-row').on('click', function() {
+        $('#analysis' + $(this).attr('track-row-id')).toggle(300);
+    })
+
     // $('.track_img').on('click', function() {
     //     $('#analysis' + $(this).attr('track-id')).toggle(500);
     // });

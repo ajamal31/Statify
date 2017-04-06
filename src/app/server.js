@@ -168,10 +168,10 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
                     danceability: trackData[i].danceability,
                     energy: trackData[i].energy,
                     loudness: trackData[i].loudness,
-                    mode: trackData[i].mode,
+                    mode: convertMode(trackData[i].mode),
                     tempo: trackData[i].tempo,
                     valence: trackData[i].valence,
-                    key: trackData[i].key,
+                    key: convertKey(trackData[i].key),
                     speechiness: trackData[i].speechiness,
                     acousticness: trackData[i].acousticness,
                     instrumentalness: trackData[i].instrumentalness,
@@ -182,6 +182,42 @@ function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
         }, function(err) {
             done(err);
         });
+}
+
+function convertMode(mode) {
+    if (mode == 1) {
+        return 'Major';
+    } else {
+        return 'Minor';
+    }
+}
+
+function convertKey(key) {
+    if (key == 0) {
+        return 'C';
+    } else if (key == 1) {
+        return 'C♯/D♭';
+    } else if (key == 2) {
+        return 'D';
+    } else if (key == 3) {
+        return 'D♯/E♭';
+    } else if (key == 4) {
+        return 'E';
+    } else if (key == 5) {
+        return 'F';
+    } else if (key == 6) {
+        return 'F♯/G♭';
+    } else if (key == 7) {
+        return 'G';
+    } else if (key == 8) {
+        return 'G♯/A♭';
+    } else if (key == 9) {
+        return 'A';
+    } else if (key == 10) {
+        return 'A♯/B♭';
+    } else {
+        return 'B';
+    }
 }
 
 

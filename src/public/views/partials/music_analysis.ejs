@@ -2,7 +2,7 @@
     <div class="row placeholders">
         <h3 class="text-justify" id="musicanalysis">My Track Analysis</h3>
         <% for(var i = 0; i < 10; i++) { %>
-            <div class="row track-row">
+            <div class="row track-row" track-row-id="<%= topTracks[i].id %>">
                 <div class="col">
                     <div class="row">
                         <div class="col-lg-2">
@@ -17,9 +17,17 @@
                             </p>
                         </div>
                         <div class="col-lg-2">
-                            <p class="text-left">
-                                <h4>Mode: <%= trackAnalysis[i].mode %></h4>
-                            </p>
+                            <div class="row">
+                                    <h4 class="text-left">Mode: <%= trackAnalysis[i].mode %></h4>
+                            </div>
+                            <div class="row">
+                                    <h4 class="text-left">Key: <%= trackAnalysis[i].key %></h4>
+                            </div>
+                            <div class="row">
+
+                                    <h4 class="text-left">Tempo: <%= trackAnalysis[i].tempo %></h4>
+
+                            </div>
                         </div>
                     </div>
                     <div class="row track-analysis-box" id="analysis<%= topTracks[i].id %>">
