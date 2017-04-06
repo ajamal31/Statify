@@ -1,6 +1,20 @@
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="row placeholders">
         <h3 class="text-justify" id="musicanalysis">My Track Analysis</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="text-justify" id="analysis-instruction">Please mouseover and image or click a track container for analysis.</h4>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-1 analysis-btn">
+                <button class="btn btn-default" id="show-analysis">Show All</h4>
+            </div>
+            <div class="col-lg-1">
+                <button class="btn btn-default" id="close-analysis">Close All</h4>
+            </div>
+        </div>
         <% for(var i = 0; i < 10; i++) { %>
             <div class="row track-row" track-row-id="<%= topTracks[i].id %>">
                 <div class="col">
@@ -22,34 +36,34 @@
                                 <h4 class="text-left">Key: <%= trackAnalysis[i].key %></h4>
                             </div>
                             <div class="row">
-                                <h4 class="text-left">Tempo: <%= trackAnalysis[i].tempo %></h4>
+                                <h4 class="text-left">Tempo: <%= Math.round(trackAnalysis[i].tempo) %></h4>
                             </div>
                         </div>
                     </div>
                     <div class="row track-analysis-box" id="analysis<%= topTracks[i].id %>">
                         <div class="col-lg-1">
-                            <div id="danceability<%= topTracks[i].id %>"></div>
+                            <div id="Danceability<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="energy<%= topTracks[i].id %>"></div>
+                            <div id="Energy<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="loudness<%= topTracks[i].id %>"></div>
+                            <div id="Loudness<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="speechiness<%= topTracks[i].id %>"></div>
+                            <div id="Speechiness<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="acousticness<%= topTracks[i].id %>"></div>
+                            <div id="Acousticness<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="instrumentalness<%= topTracks[i].id %>"></div>
+                            <div id="Instrumentalness<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="liveness<%= topTracks[i].id %>"></div>
+                            <div id="Liveness<%= topTracks[i].id %>"></div>
                         </div>
                         <div class="col-lg-1">
-                            <div id="valence<%= topTracks[i].id %>"></div>
+                            <div id="Valence<%= topTracks[i].id %>"></div>
                         </div>
 
                         <script language="JavaScript">
@@ -58,18 +72,18 @@
 
                             function start() {
                                 attributes = {
-                                    danceability: <%= trackAnalysis[i].danceability %>,
-                                    energy: <%= trackAnalysis[i].energy %>,
-                                    loudness: <%= trackAnalysis[i].loudness %>,
-                                    speechiness: <%= trackAnalysis[i].speechiness%>,
-                                    acousticness: <%= trackAnalysis[i].acousticness %>,
-                                    instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
-                                    liveness: <%= trackAnalysis[i].liveness %>,
-                                    valence: <%= trackAnalysis[i].valence %>
+                                    Danceability: <%= trackAnalysis[i].danceability %>,
+                                    Energy: <%= trackAnalysis[i].energy %>,
+                                    Loudness: <%= trackAnalysis[i].loudness %>,
+                                    Speechiness: <%= trackAnalysis[i].speechiness%>,
+                                    Acousticness: <%= trackAnalysis[i].acousticness %>,
+                                    Instrumentalness: <%= trackAnalysis[i].instrumentalness %>,
+                                    Liveness: <%= trackAnalysis[i].liveness %>,
+                                    Valence: <%= trackAnalysis[i].valence %>
                                 };
 
                                 for (var attribute in attributes) {
-                                    if (attribute == 'loudness') {
+                                    if (attribute == 'Loudness') {
                                         radialProgress(document.getElementById(attribute + '<%= topTracks[i].id %>'))
                                             .label(attribute)
                                             .diameter(150)
