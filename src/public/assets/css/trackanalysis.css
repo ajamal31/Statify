@@ -80,6 +80,18 @@
     margin-left: 14px;
 }
 
-.analysis-btn {
-    margin: 0;
+.analysis-btn, .analysis-btn:hover {
+    background-color: #0c1508;
+    color: white;
+    border-color: #ffa834;
+}
+
+.analysis-btn:active, .analysis-btn:focus {
+    background-color: #0c1508;
+    color: #ffa834;
+    border-color: #ffa834;
+}
+
+.analysis-btn-col {
+    margin: 0px;
 }
