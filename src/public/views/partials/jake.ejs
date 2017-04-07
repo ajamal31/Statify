@@ -21,6 +21,27 @@
     html {
         font-family: sans-serif;
     }
+
+    ul {
+        margin: 20px;
+        list-style-type: none;
+    }
+
+    .input-color {
+        position: relative;
+        padding-left: 30px;
+    }
+    .input-color input {
+        padding-left: 20px;
+
+    }
+    .input-color .color-box {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        left: 5px;
+        top: 5px;
+    }
 </style>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <div id='sunburst'></div>
@@ -28,24 +49,41 @@
     <div class="row placeholders">
     <div id="sunburst1" style="background-color: #0c1508;margin: 5px; padding: 20px;">
         <h3 style="text-align:left;">My Top 50</h3>
-        <table>
-            <tr>
-                <th>Color</th>
-                <th>Type</th>
-            </tr>
-        </table>
+        <ul>
+            <li>
+                <div class="input-color">
+                    <div class="color-box" style="background-color: #009E73; float: left;"></div>
+                    <div style="float: left;">Artists
+                    </div>
+                </div>
+                <div style="color: #0c1508;">a</div>
+            </li>
+            <li>
+                <div class="input-color">
+                    <div class="color-box" style="background-color: #4682B4; float: left;"></div>
+                    <div style="float: left;">Albums</div>
+                </div>
+                <div style="color: #0c1508;">a</div>
+            </li>
+            <li>
+                <div class="input-color">
+                    <div class="color-box" style="background-color: #F0E442; float: left;"></div>
+                    <div style="float: left;">Tracks</div>
+                </div>
+            </li>
+        </ul>
         <script type="text/javascript">
             var margin = {top: 350, right: 480, bottom: 350, left: 480},
                 radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
             function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
-            var hue = d3.scale.ordinal(0, 1, 2).range(["#777777", "#FFA834", "#72BB53"]);
+            var hue = d3.scale.ordinal(0, 1, 2).range(["#F0E442", "#009E73", "#4682B4"]);
 
             var luminance = d3.scale.sqrt()
                 .domain([0, 30])
                 .clamp(true)
-                .range([55, 35]);
+                .range([75, 35]);
 
             var svg = d3.select("#sunburst1").append("svg")
                 .attr("width", margin.left + margin.right)
