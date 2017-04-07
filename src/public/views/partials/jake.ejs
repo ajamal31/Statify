@@ -22,17 +22,15 @@
         font-family: sans-serif;
     }
 </style>
-<body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="../assets/colors/colors.js"></script>
-<script>
-
+<div id='sunburst'></div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"><h3 style="text-align:left;">My Top 50</h3></div>
+<script type="text/javascript">
     var margin = {top: 350, right: 480, bottom: 350, left: 480},
         radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
     function filter_min_arc_size_text(d, i) {return (d.dx*d.depth*radius/3)>14}
 
-    //var hue = d3.scale.ordinal(0, 1).range(["#FFA834", "#72BB53"]);
     var hue = d3.scale.ordinal(0, 1, 2).range(["#777777", "#FFA834", "#72BB53"]);
 
     var luminance = d3.scale.sqrt()
@@ -92,7 +90,7 @@
         return tooltip.style("opacity", 0);
     }
 
-    function mouseMoveArc (d) {
+    function mouseMoveArc(d) {
         return tooltip
             .style("top", (d3.event.pageY-10)+"px")
             .style("left", (d3.event.pageX+10)+"px");
@@ -247,8 +245,6 @@
     }
 
     function fill(d) {
-        //var p = d;
-        //while (p.depth > 1) p = p.parent;
         var c = d3.lab(hue(d.lev));
         c.l = luminance(d.sum);
         return c;

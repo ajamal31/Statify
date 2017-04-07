@@ -139,10 +139,6 @@ function renderHome(res, tracks, artists, sunDat, trackStats) {
     });
 }
 
-function sunburstData(spotifyAPi, res, tracks, artists, callback) {
-    spotifyAPi.getAvailableGenreSeeds().then(function(data) {});
-}
-
 function dashboardData(spotifyApi, res, tracks, artists, genres, callback) {
     var trackIds = [];
     //store the analysis for the tracks
