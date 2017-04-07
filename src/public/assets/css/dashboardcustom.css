@@ -83,6 +83,13 @@ body {
     background-color: #72bb53;
 }
 
+.nav-sidebar .img-responsive {
+  position: relative;
+  left: 4%;
+  width: 90%;
+  height: auto;
+}
+
 
 /*
  * Main content
