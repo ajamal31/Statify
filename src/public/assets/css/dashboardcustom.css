@@ -83,6 +83,13 @@ body {
     background-color: #72bb53;
 }
 
+.nav-sidebar .img-responsive {
+  position: relative;
+  left: 4%;
+  width: 90%;
+  height: auto;
+}
+
 
 /*
  * Main content
@@ -154,6 +161,14 @@ body {
   padding-bottom:0px;
   padding-left:0px;
   padding-right: 0px;
+}
+#about th {
+  text-align: center;
+  min-width: 100px;
+  border-color:#ffa834;
+}
+#about .table-sm td{
+  border-color:#ffa834;
 }
 /* Default tags for text styling */
 
