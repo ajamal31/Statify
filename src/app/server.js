@@ -85,8 +85,6 @@ app.get('/login', function(req, res) {
     res.render('login.ejs');
 });
 
-// app.get('/error')
-
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting
