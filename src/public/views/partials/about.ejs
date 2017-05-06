@@ -1,92 +1,89 @@
+<!DOCTYPE html>
 
-
-<div id="about">
-  <div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-1 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-1 main" id="about">
     <div class="row placeholders">
-    <h3 class="text-justify">About</h3>
-<h1> Dashboard </h1>
-<div style="width:90%; position: relative; left:5%;">
-<text> 
-The dashboard visualizes the complexity of your top ten tracks, using danceability, energy, speechiness, acousticness, liveness.
-The bar charts show the total complexity score of a track by combining the different track statistics to show the overall complexity of a track.
-If you scroll over an individual bar chart the pie chart changes to only show the track statistics for that track.
-Next the pie chart combines all of your top ten tracks to show a break down of the five different track statistics through all your top ten tracks.
-If you scroll over a track statistic in the pie chart the bar charts change to only show that track, allowing you to compare your top ten tracks
-</text>
-</div>
-<h1> Track Analysis </h1>
-<div style="width:90%; position: relative; left:5%;">
-<text>
-The Track Analysis section allows you to visualize information about your top ten tracks. By hovering over the image you reveal the statistics
-for that song, showing Danceability, Energy, Loudness, Speechiness, Acousticness, Instrumentalness, Liveness, and Valence for that track. Mode, Key, and Tempo
-are always displayed for each song. You can also click the "Show All" button to open all the statistics for every track in your top ten, allowing you to easily compare them.
-Hitting "Close All" will close all the statistics once they are opened.
-</text>
-</div>
-<h1> Sunburst Analysis </h1>
-<div style="width:90%; position: relative; left:5%; padding-bottom: 20px;">
-<text>
-The Sunburst section analyzes data in your top 50 tracks. It uses them to create a tree, made out of artists, albums, and songs. All the artists with tracks in your top 50 are in the innermost layer
-of the sunburst. If you click on an artist the sunburst will zoom in, giving you more information about that particular artist. In the second layer, it is broken down to the albums from those artists that have tracks on them that are in your top 50. 
-Clicking on an album will zoom it in further, allowing you to see exactly which songs from that album are in your top 50. On the outermost level, the leaves of the tree, you find 
-the tracks that are present in your top 50. Hovering over any part of the sunburst will provide a tooltip with information about that section of the graph.
-</text>
-</div>
-<table class="table-bordered table-sm" bordercolor=#ffa834>
-  <thead>
-    <tr>
-      <th>Audio Feature</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Acousticness</td>
-      <td>A measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</td>
-    </tr>
-    <tr>
-      <td>Danceability</td>
-      <td>Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable. </td>
-    </tr>
-    <tr>
-      <td>Energy</td>
-      <td>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.</td>
-    </tr>
-    <tr>
-      <td>Speechiness</td>
-      <td>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.</td>
-    </tr>
-    <tr>
-      <td>Liveness</td>
-      <td>Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.</td>
-    </tr>
-    <tr>
-      <td>Loudness</td>
-      <td>The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks.</td>
-    </tr>
-    <tr>
-      <td>Instrumentalness</td>
-      <td>Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content.</td>
-    </tr>
-    <tr>
-      <td>Valence</td>
-      <td>A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).</td>
-    </tr>
-    <tr>
-      <td>Mode</td>
-      <td>Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived.</td>
-    </tr>
-    <tr>
-      <td>Key</td>
-      <td>The key the track is in. Uses standard Pitch Class notation.</td>
-    </tr>
-    <tr>
-      <td>Tempo</td>
-      <td>The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</td>
-    </tr>
-  </tbody>
-</table>
+        <h3 class="text-justify">About</h3>
+        <h1> Dashboard </h1>
+        <div style="width:90%; position: relative; left:5%;">
+            <p>
+                The dashboard visualizes the complexity of your top ten tracks, using danceability, energy, speechiness, acousticness, liveness. The bar charts show the total complexity score of a track by combining the different track statistics to show the overall
+                complexity of a track. If you scroll over an individual bar chart the pie chart changes to only show the track statistics for that track. Next the pie chart combines all of your top ten tracks to show a break down of the five different
+                track statistics through all your top ten tracks. If you scroll over a track statistic in the pie chart the bar charts change to only show that track, allowing you to compare your top ten tracks
+            </p>
+        </div>
+        <h1> Track Analysis </h1>
+        <div style="width:90%; position: relative; left:5%;">
+            <p>
+                The Track Analysis section allows you to visualize information about your top ten tracks. By hovering over the image you reveal the statistics for that song, showing Danceability, Energy, Loudness, Speechiness, Acousticness, Instrumentalness, Liveness,
+                and Valence for that track. Mode, Key, and Tempo are always displayed for each song. You can also click the "Show All" button to open all the statistics for every track in your top ten, allowing you to easily compare them. Hitting "Close
+                All" will close all the statistics once they are opened.
+            </p>
+        </div>
+        <h1> Sunburst Analysis </h1>
+        <div style="width:90%; position: relative; left:5%; padding-bottom: 20px;">
+            <p>
+                The Sunburst section analyzes data in your top 50 tracks. It uses them to create a tree, made out of artists, albums, and songs. All the artists with tracks in your top 50 are in the innermost layer of the sunburst. If you click on an artist the sunburst
+                will zoom in, giving you more information about that particular artist. In the second layer, it is broken down to the albums from those artists that have tracks on them that are in your top 50. Clicking on an album will zoom it in further,
+                allowing you to see exactly which songs from that album are in your top 50. On the outermost level, the leaves of the tree, you find the tracks that are present in your top 50. Hovering over any part of the sunburst will provide a tooltip
+                with information about that section of the graph.
+            </p>
+        </div>
+        <table class="table-bordered table-sm" bordercolor=#ffa834>
+            <thead>
+                <tr>
+                    <th>Audio Feature</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Acousticness</td>
+                    <td>A measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.</td>
+                </tr>
+                <tr>
+                    <td>Danceability</td>
+                    <td>Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+                        </td>
+                </tr>
+                <tr>
+                    <td>Energy</td>
+                    <td>Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.</td>
+                </tr>
+                <tr>
+                    <td>Speechiness</td>
+                    <td>Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value.</td>
+                </tr>
+                <tr>
+                    <td>Liveness</td>
+                    <td>Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.</td>
+                </tr>
+                <tr>
+                    <td>Loudness</td>
+                    <td>The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks.</td>
+                </tr>
+                <tr>
+                    <td>Instrumentalness</td>
+                    <td>Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content.</td>
+                </tr>
+                <tr>
+                    <td>Valence</td>
+                    <td>A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed,
+                        angry).</td>
+                </tr>
+                <tr>
+                    <td>Mode</td>
+                    <td>Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived.</td>
+                </tr>
+                <tr>
+                    <td>Key</td>
+                    <td>The key the track is in. Uses standard Pitch Class notation.</td>
+                </tr>
+                <tr>
+                    <td>Tempo</td>
+                    <td>The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</td>
+                </tr>
+            </tbody>
+        </table>
 
     </div>
-  </div>
 </div>
