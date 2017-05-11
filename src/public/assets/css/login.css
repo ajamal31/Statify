@@ -25,3 +25,7 @@ button {
 button:hover {
   background: #82BD03;
 }
+
+a {
+  color: #649000;
+}
