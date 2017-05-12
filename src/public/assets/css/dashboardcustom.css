@@ -85,7 +85,7 @@ body {
     background: none;
 }
 
-.nav-sidebar>li>a:active{
+.nav-sidebar>li>a:active {
     color: gold;
     background-color: none;
 }
@@ -123,10 +123,13 @@ body {
  * Placeholder dashboard ideas
  */
 
+
+/*Main container that holds different contents*/
+
 .placeholders {
     margin: 1px;
     text-align: center;
-    background-color: #192015;
+    background-color: #182912;
     width: 1100px;
 }
 

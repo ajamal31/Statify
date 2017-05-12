@@ -16,7 +16,7 @@ $(document).ready(function() {
             // Using jQuery's animate() method to add smooth page scroll
             $('html, body').animate({
                 scrollTop: $(hash).offset().top - $('.navbar-fixed-top').height()
-            }, 200);
+            }, 700);
         } // End if
     });
 });
