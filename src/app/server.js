@@ -336,8 +336,8 @@ function requestTracks(spotifyApi, res, callback) {
     }, function(err, data) {
         if (err) {
             console.error('Something went wrong in tracks request!');
-        // Error handling if the user doesn't have enough information.
-        } else if (data.body.items.length == 0) {
+          // Error handling if the user doesn't have enough information.
+        } else if (data.body.items.length < 10) {
             res.render('error.ejs');
         } else {
             callback(spotifyApi, res, data.body.items, sunburstData);
