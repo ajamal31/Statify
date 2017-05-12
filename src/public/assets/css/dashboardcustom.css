@@ -138,7 +138,7 @@ body {
 }
 
 .placeholder {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #top-artists .placeholder img {
@@ -192,7 +192,7 @@ p {
 
 h3 {
     padding-left: 15px;
-    font-family: Helvetica;
+    font-family: sans-serif;
     color: #ffa834;
 }
 
