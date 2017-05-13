@@ -194,11 +194,19 @@ body {
     padding: 1%;
 }
 
+#title {
+    color: lightgreen;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 150%;
+}
+
 
 /* Default tags for text styling */
 
 p {
     font-size: 110%;
+    color: lightblue;
 }
 
 h3 {
