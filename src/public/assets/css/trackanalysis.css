@@ -65,10 +65,7 @@
 }
 
 .track-row {
-    background-color: #0c1508;
-    border-bottom: 1px solid;
-    border-top: 1px solid;
-    border-color: grey;
+    background-color: #121212;
     margin: 5px;
     padding: 20px;
 }
