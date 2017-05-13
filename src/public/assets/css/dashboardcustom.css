@@ -33,15 +33,12 @@ body {
 
 .navbar button {
     position: relative;
-    left: 91%;
-    top: 14px;
-    background: lightgreen;
+    left: 89%;
+    top: 10px;
+    border: none;
+    /*background: lightgreen;
     border-radius: 2px;
-    border: 0;
-}
-
-.navbar button:hover {
-    background: #82BD03;
+    border: 0;*/
 }
 
 
@@ -87,7 +84,7 @@ body {
 }
 
 .nav-sidebar>li>a:active {
-    color: gold;
+    color: lightgreen;
     background-color: none;
 }
 
@@ -151,7 +148,7 @@ body {
     position: relative;
     padding: 15px;
     padding-left: 30px;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     text-align: center;
     background-color: #232323;
     width: 102.65%;
@@ -167,7 +164,7 @@ body {
 
 #top-artists .placeholder img {
     border: 1px solid;
-    border-color: #ffa834;
+    border-color: lightgrey;
     width: 110px;
     height: 110px;
     padding-left: 0px;
@@ -190,7 +187,7 @@ body {
 
 #top-tracks .img-responsive {
     border: 1px solid;
-    border-color: #ffa834;
+    border-color: lightgrey;
     padding-top: 0px;
     padding-bottom: 0px;
     padding-left: 0px;
@@ -200,25 +197,36 @@ body {
 #about th {
     text-align: center;
     min-width: 100px;
-    border-color: #ffa834;
+    border-color: lightgreen;
 }
 
 #about .table-sm td {
-    border-color: #ffa834;
+    border-color: lightgrey;
+}
+
+#dashboard {
+    background-color: #121212;
+    padding: 1%;
 }
 
 
 /* Default tags for text styling */
 
 p {
-    font-size: 16px;
+    font-size: 110%;
 }
 
 h3 {
     padding-left: 15px;
-    font-size: 17px;
+    font-size: 130%;
     font-family: sans-serif;
     color: lightgreen;
+}
+
+h4 {
+    font-size: 100%;
+    font-family: sans-serif;
+    color: lightblue;
 }
 
 
