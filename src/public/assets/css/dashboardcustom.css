@@ -36,9 +36,6 @@ body {
     left: 89%;
     top: 10px;
     border: none;
-    /*background: lightgreen;
-    border-radius: 2px;
-    border: 0;*/
 }
 
 
@@ -104,25 +101,13 @@ body {
     position: relative;
     left: 8%;
     top: 1px;
-    /*left: 100px;*/
-    /*margin-bottom: 5px;*/
 }
 
 .main-top {
     position: relative;
     left: 8%;
     top: 52px;
-    /*left: 100px;*/
-    /*margin-bottom: 5px;*/
 }
-
-
-/*@media (min-width: 768px) {
-    .main {
-        padding-right: 40px;
-        padding-left: 40px;
-    }
-}*/
 
 .main .page-header {
     margin-top: 0;
