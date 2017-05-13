@@ -1,11 +1,11 @@
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Statify</a>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a id='title' class="navbar-brand">Statify</a>
+        </div>
+        <a href="/logout"><button class="btn btn-default analysis-btn">Logout</button></a>
     </div>
-    <a href="/logout"><button>Logout</button></a>
-  </div>
 </nav>
 
 <!-- Side bar and the dashboard -->
@@ -15,7 +15,7 @@
             <ul class="nav nav-sidebar">
                 <img src="<%= topArtists[0].images[1].url %>" class="img-responsive" alt="Generic placeholder thumbnail">
                 </br>
-                <li class="active"><a href="#top-tracks">Dashboard <span class="sr-only">(current)</span></a></li>
+                <li><a href="#top-tracks">Dashboard </a></li>
                 <li><a href="#musicanalysis">Music Analysis</a></li>
                 <li><a href="#sunburst1">My Top 50</a></li>
                 <li><a href="#about">About</a></li>

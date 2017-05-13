@@ -1,31 +1,38 @@
 body {
-  padding-top: 50px;
-  background-color: #373737;
-  color: white;
+    padding-top: 50px;
+    background-color: #373737;
+    color: white;
 }
-#login-block{
-  width: 50%;
-  top: 10%;
-  margin: auto;
-  background-color: #000000;
-  border: black 1px solid;
-  text-align: center;
-  padding-bottom: 2%;
+
+#login-block {
+    width: 50%;
+    top: 10%;
+    margin: auto;
+    background-color: #373737;
+    text-align: center;
+    padding-bottom: 2%;
+    padding-top: 0.5%;
 }
+
 button {
-  background: #649000;
-  width: 35%;
-  height: 40px;
-  border-radius: 10px;
-  border: 0;
-  text-transform: uppercase;
-  font-size: 0.8em;
-  font-weight: bold;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: #4CAF50;
+    width: 90%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
 }
+
 button:hover {
-  background: #82BD03;
+    background: #82BD03;
 }
 
 a {
-  color: #649000;
+    color: #649000;
 }
