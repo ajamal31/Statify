@@ -35,21 +35,23 @@
 
 .arc {
     stroke-weight: 0.1;
-    fill: #ffa834;
-    stroke: #ffa834;
+    fill: lightgreen;
+    stroke: lightgreen;
 }
 
 .arc2 {
     stroke-weight: 0.1;
-    fill: #ffa834;
+    fill: red;
     stroke: none;
 }
 
 .label {
-    font-family: Myriad, "Helvetic Neue", Helvetica, Arial;
+    font-family: sans-serif;
     font-size: 14px;
+    font-style: normal;
+    font-weight: lighter;
     text-anchor: middle;
-    fill: #ffa834;
+    fill: lightgreen;
 }
 
 .radial-svg {
@@ -71,8 +73,8 @@
 }
 
 .track-img {
-    border: 1px solid;
-    border-color: #ffa834;
+    border: 2px solid;
+    border-color: lightgreen;
 }
 
 #analysis-instruction {
@@ -81,15 +83,15 @@
 }
 
 .analysis-btn, .analysis-btn:hover {
-    background-color: #0c1508;
+    background-color: #121212;
     color: white;
-    border-color: #ffa834;
+    border-color: lightgreen;
 }
 
 .analysis-btn:active, .analysis-btn:focus {
-    background-color: #0c1508;
-    color: #ffa834;
-    border-color: #ffa834;
+    background-color: #121212;
+    color: lightgreen;
+    border-color: lightgreen;
 }
 
 .analysis-btn-col {

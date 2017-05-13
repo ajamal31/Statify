@@ -72,7 +72,6 @@ body {
 
 .nav-sidebar {
     margin-right: -21px;
-    /* 20px padding + 1px border */
     margin-bottom: 20px;
     margin-left: -20px;
 }
@@ -105,16 +104,28 @@ body {
  */
 
 .main {
-    margin-left: 65px;
-    margin-bottom: 5px;
+    position: relative;
+    left: 8%;
+    top: 1px;
+    /*left: 100px;*/
+    /*margin-bottom: 5px;*/
 }
 
-@media (min-width: 768px) {
+.main-top {
+    position: relative;
+    left: 8%;
+    top: 52px;
+    /*left: 100px;*/
+    /*margin-bottom: 5px;*/
+}
+
+
+/*@media (min-width: 768px) {
     .main {
         padding-right: 40px;
         padding-left: 40px;
     }
-}
+}*/
 
 .main .page-header {
     margin-top: 0;
@@ -128,12 +139,22 @@ body {
 
 /* Main container that holds different contents */
 
-.placeholders {
+.placeholders-1 {
     padding: 15px;
     padding-left: 30px;
     text-align: center;
     background-color: #232323;
-    width: 1080px;
+    width: 85.5%;
+}
+
+.placeholders-2 {
+    position: relative;
+    padding: 15px;
+    padding-left: 30px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #232323;
+    width: 102.65%;
 }
 
 .placeholders h4 {
