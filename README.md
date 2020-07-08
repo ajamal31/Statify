@@ -1,13 +1,11 @@
-# cmpt350termproject
-
-## Group Members:
-* Jake Jones
+## Developed by:
 * Arun Jamal
+* Jake Jones
 * Jack Staples
 
 ## How to use
 Clone the repository by running 
-<pre> git clone https://github.com/jonesj38/cmpt350termproject </pre>
+<pre> git clone https://github.com/ajamal31/statify </pre>
 
 Install all dependencies by running in the root of the directory
 <pre> npm install </pre>
