@@ -14,7 +14,7 @@
     "express-session": "1.4.0",
     "jquery": "^3.1.1",
     "lokijs": "^1.4.3",
-    "method-override": "2.0.2",
+    "method-override": "3.0.0",
     "passport": "~0.2.0",
     "passport-oauth": "1.0.0",
     "passport-spotify": "^0.3.1",
