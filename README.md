@@ -5,7 +5,7 @@
 
 ## How to use
 Clone the repository by running 
-<pre> git clone https://github.com/ajamal31/statify </pre>
+<pre> git clone https://github.com/ajamal31/Statify.git </pre>
 
 Install all dependencies by running in the root of the directory
 <pre> npm install </pre>
