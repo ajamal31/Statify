@@ -14,7 +14,7 @@ then navigate to the src directory and run to launch the server
 <pre> node main.js </pre>
 
 the server runs one
-<pre> localhost:8080 </pre>
+<pre> localhost:8888 </pre>
 
 ## Code Style:
 We are going to follow the google style guide found at:
