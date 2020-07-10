@@ -56,10 +56,15 @@ app.set('views', __dirname + '/../public/views');
 app.set('view engine', 'ejs');
 
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(methodOverride());
 app.use(session({
-    secret: 'keyboard cat'
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
 }));
 // configure packages to be used
 app.use(bodyParser.json());
