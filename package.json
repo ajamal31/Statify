@@ -1,17 +1,17 @@
 {
-  "name": "cmpt350termproject",
+  "name": "Statify",
   "version": "1.0.0",
-  "description": "350 project to visualize spotify data using D3 vis tools",
+  "description": "Statify - Spotify Data Visualization App",
   "main": "index.js",
   "dependencies": {
-    "body-parser": "1.3.1",
+    "body-parser": "^1.19.0",
     "bootstrap": "^3.3.7",
     "consolidate": "~0.10.0",
-    "cookie-parser": "1.3.1",
+    "cookie-parser": "^1.4.5",
     "d3": "^3.5.17",
     "ejs": "^2.5.6",
-    "express": "4.4.3",
-    "express-session": "1.4.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "jquery": "^3.1.1",
     "lokijs": "^1.4.3",
     "method-override": "2.0.2",
@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jonesj38/cmpt350termproject.git"
+    "url": "git+https://github.com/ajamal31/statify.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jonesj38/cmpt350termproject/issues"
+    "url": "https://github.com/ajamal31/statify/issues"
   },
-  "homepage": "https://github.com/jonesj38/cmpt350termproject#readme"
+  "homepage": "https://github.com/ajamal31/statify#readme"
 }
