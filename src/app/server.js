@@ -336,7 +336,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
 // Gets top 10 tracks
 function requestTracks(spotifyApi, res, callback) {
     spotifyApi.getMyTopTracks({
-        time_range: 'short_term',
+        time_range: 'medium_term',
         limit: 50
     }, function(err, data) {
         if (err) {
@@ -353,7 +353,7 @@ function requestTracks(spotifyApi, res, callback) {
 // Gets top 10 artists
 function requestArtists(spotifyApi, res, tracks, callback) {
     spotifyApi.getMyTopArtists({
-        time_range: 'short_term',
+        time_range: 'medium_term',
         limit: 10
     }, function(err, data) {
         if (err) {
