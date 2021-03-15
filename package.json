@@ -2,7 +2,7 @@
   "name": "Statify",
   "version": "1.0.0",
   "description": "Statify - Spotify Data Visualization App",
-  "main": "main.js",
+  "main": "home.ejs",
   "homepage":"https://ajamal31.github.io/Statify",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -30,7 +30,7 @@
     "express-debug": "^1.1.1"
   },
   "scripts": {
-    "deploy": "gh-pages -d src"
+    "deploy": "gh-pages -d src/public/views"
   },
   "repository": {
     "type": "git",
