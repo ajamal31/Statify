@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Statify - Spotify Data Visualization App",
   "main": "home.ejs",
-  "homepage":"https://ajamal31.github.io/Statify",
+  "homepage": "https://ajamal31.github.io/Statify",
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^3.3.7",
@@ -16,18 +16,18 @@
     "gh-pages": "^3.1.0",
     "jquery": "^3.1.1",
     "lokijs": "^1.4.3",
-    "method-override": "2.0.2",
+    "method-override": "^2.3.10",
     "passport": "~0.2.0",
     "passport-oauth": "1.0.0",
     "passport-spotify": "^0.3.1",
     "pkginfo": "~0.4.0",
     "querystring": "~0.2.0",
-    "spotify-web-api-node": "^2.3.6",
-    "swig": "~1.3.2",
+    "spotify-web-api-node": "^5.0.2",
+    "swig": "^0.14.0",
     "util": "~0.10.3"
   },
   "devDependencies": {
-    "express-debug": "^1.1.1"
+    "express-debug": "^1.0.2"
   },
   "scripts": {
     "deploy": "gh-pages -d src/public/views"
