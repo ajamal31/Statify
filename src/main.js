@@ -1,5 +1,6 @@
+var PORT = process.env.PORT || 8888;
 var app = require('./app/server');
 
-app.listen(8888, function() {
+app.listen(PORT, function() {
     console.log('server is running on localhost:8888');
 })
