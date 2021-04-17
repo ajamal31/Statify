@@ -150,12 +150,12 @@ body {
 #top-artists .placeholder img {
     border: 1px solid;
     border-color: lightgrey;
-    width: 110px;
-    height: 110px;
+    height: 200px;
     padding-left: 0px;
     padding-right: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
+    object-fit: cover;
 }
 
 #top-artists .placeholder {
