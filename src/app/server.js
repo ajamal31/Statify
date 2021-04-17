@@ -15,6 +15,8 @@ var express = require('express'),
 var appKey = '2f1def3a12c34f8083a6fae3ace4fd32';
 var appSecret = '7ba7b27730e548a8a129287bb9ef1f4f';
 
+var PORT = process.env.PORT || 8888;
+
 //   Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session. Typically,
@@ -37,7 +39,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
         clientID: appKey,
         clientSecret: appSecret,
-        callbackURL: 'http://localhost:8888/callback'
+        callbackURL: '/callback'
     },
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -128,7 +130,7 @@ function requestData(req, res) {
     var spotifyApi = new SpotifyWebApi({
         clientId: appKey,
         clientSecret: appSecret,
-        redirectUri: 'http://localhost:8888/callback'
+        redirectUri: '/callback'
     });
     spotifyApi.setAccessToken(req.user.oauth);
     requestTracks(spotifyApi, res, requestArtists);
