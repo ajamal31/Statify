@@ -39,7 +39,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
         clientID: appKey,
         clientSecret: appSecret,
-        callbackURL: 'http://localhost:' + PORT + '/callback'
+        callbackURL: '/callback'
     },
     function(accessToken, refreshToken, profile, done) {
         // asynchronous verification, for effect...
@@ -130,7 +130,7 @@ function requestData(req, res) {
     var spotifyApi = new SpotifyWebApi({
         clientId: appKey,
         clientSecret: appSecret,
-        redirectUri: 'http://localhost:' + PORT + '/callback'
+        redirectUri: '/callback'
     });
     spotifyApi.setAccessToken(req.user.oauth);
     requestTracks(spotifyApi, res, requestArtists);
