@@ -82,7 +82,7 @@ app.get('/', function(req, res) {
     if (req.isAuthenticated()) {
         requestData(req, res);
     } else {
-        res.redirect('/login');
+        res.redirect('/auth/spotify');
     }
 });
 
@@ -112,7 +112,7 @@ app.get('/auth/spotify',
 //   which, in this example, will redirect the user to the home page.
 app.get('/callback',
     passport.authenticate('spotify', {
-        failureRedirect: '/login'
+        failureRedirect: '/auth/spotify'
     }),
     function(req, res) {
         res.redirect('/');
@@ -120,7 +120,7 @@ app.get('/callback',
 
 app.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/login');
+    res.redirect('/auth/spotify');
 });
 
 // Gets all the data (tracks, artists...) and passes to the view.
@@ -336,7 +336,7 @@ function sunburstData(spotifyApi, res, tracks, artists, callback) {
 // Gets top 10 tracks
 function requestTracks(spotifyApi, res, callback) {
     spotifyApi.getMyTopTracks({
-        time_range: 'medium_term',
+        time_range: 'short_term',
         limit: 50
     }, function(err, data) {
         if (err) {
@@ -353,7 +353,7 @@ function requestTracks(spotifyApi, res, callback) {
 // Gets top 10 artists
 function requestArtists(spotifyApi, res, tracks, callback) {
     spotifyApi.getMyTopArtists({
-        time_range: 'medium_term',
+        time_range: 'short_term',
         limit: 10
     }, function(err, data) {
         if (err) {
